@@ -15,16 +15,14 @@ namespace Glass_Size_Estimator
         public Form1()
         {
             InitializeComponent();
+        }
 
-            TableLayoutPanel layoutPanel = new TableLayoutPanel();
-            layoutPanel.Size = new Size(620, 100);
-            layoutPanel.Location = new Point(10, 20);
-
-            layoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-
-            layoutPanel.Controls.Add(new Label { Text = "Testing" });
-
-            this.Controls.Add(layoutPanel);
+        private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*TODO: Code that will run when a new product line is selected. Function should:
+             * 1. Remove non-static UI elements and rebuild form with the required input boxes for measurements
+             * as well as output boxes.
+             */
         }
     }
 }

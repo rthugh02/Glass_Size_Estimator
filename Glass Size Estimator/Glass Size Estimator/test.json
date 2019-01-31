@@ -1,0 +1,63 @@
+{
+  "ProductLine": "name",
+  "Input": [
+    {
+      "Name": "Width",
+      "Type": "Float"
+    },
+    {
+      "Name": "Height",
+      "Type": "Float"
+    },
+    {
+      "Name": "ClearSweep",
+      "Type": "Boolean"
+    }
+  ],
+  "Output": [
+    {
+      "Name": "FinalWidth",
+      "Type": "Float"
+    },
+    {
+      "Name": "FinalHeight",
+      "Type": "Float"
+    },
+    {
+      "Name": "WallJamb",
+      "Type": "Enum"
+    },
+    {
+      "Name": "StockAvailable",
+      "Type": "Boolean"
+    }
+  ],
+  "Logic": [
+    {
+      "StepNumber": "1",
+      "NextStep": 2,
+      "Input": "Width",
+      "Operation": "Division",
+      "Value": 2
+    },
+    {
+      "StepNumber": 2,
+      "Input": "Width",
+      "Operation": "CheckInventory",
+      "NextStepTrue": 3,
+      "NextStepFalse": 4
+    },
+    {
+      "StepNumber": 3,
+      "NextStep": 0,
+      "Input": "Width",
+      "Operation": "End"
+    },
+    {
+      "StepNumber": 4,
+      "NextStep": 2,
+      "Input": "Width",
+      "Operation": "RoundUp"
+    }
+  ]
+}

@@ -12,7 +12,5 @@ namespace Glass_Size_Estimator
         public List<IO> Input { get; set; }
         public List<IO> Output { get; set; }
         public List<State> Logic { get; set; }
-        
-
     }
 }
