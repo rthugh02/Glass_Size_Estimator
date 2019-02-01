@@ -12,8 +12,10 @@ namespace Glass_Size_Estimator
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        private List<ProductLine> productLines;
+        public Form1(List<ProductLine> ConfigProductLines)
         {
+            productLines = ConfigProductLines;
             InitializeComponent();
         }
 
