@@ -36,7 +36,7 @@ namespace Glass_Size_Estimator
             }
 
             
-            Application.Run(new Form1(configsRead));
+            Application.Run(new Main(configsRead));
         }
     }
 }
