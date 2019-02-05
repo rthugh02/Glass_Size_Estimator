@@ -28,21 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ProductLineSelector = new System.Windows.Forms.ListBox();
             this.RestButton = new System.Windows.Forms.Button();
             this.ExportButton = new System.Windows.Forms.Button();
             this.MiscButton = new System.Windows.Forms.Button();
+            this.ProductLineSelector = new System.Windows.Forms.ListView();
             this.SuspendLayout();
-            // 
-            // ProductLineSelector
-            // 
-            this.ProductLineSelector.FormattingEnabled = true;
-            this.ProductLineSelector.ItemHeight = 20;
-            this.ProductLineSelector.Location = new System.Drawing.Point(12, 12);
-            this.ProductLineSelector.Name = "ProductLineSelector";
-            this.ProductLineSelector.Size = new System.Drawing.Size(227, 664);
-            this.ProductLineSelector.TabIndex = 0;
-            this.ProductLineSelector.SelectedIndexChanged += new System.EventHandler(this.ProductLineSelector_SelectedIndexChanged);
             // 
             // RestButton
             // 
@@ -71,27 +61,36 @@
             this.MiscButton.Text = "Misc.";
             this.MiscButton.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // ProductLineSelector
+            // 
+            this.ProductLineSelector.Location = new System.Drawing.Point(12, 12);
+            this.ProductLineSelector.Name = "ProductLineSelector";
+            this.ProductLineSelector.Size = new System.Drawing.Size(218, 664);
+            this.ProductLineSelector.TabIndex = 4;
+            this.ProductLineSelector.UseCompatibleStateImageBehavior = false;
+            this.ProductLineSelector.View = System.Windows.Forms.View.List;
+            this.ProductLineSelector.SelectedIndexChanged += new System.EventHandler(this.ProductLineSelector_SelectedIndexChanged);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1322, 696);
+            this.Controls.Add(this.ProductLineSelector);
             this.Controls.Add(this.MiscButton);
             this.Controls.Add(this.ExportButton);
             this.Controls.Add(this.RestButton);
-            this.Controls.Add(this.ProductLineSelector);
-            this.Name = "Form1";
+            this.Name = "Main";
             this.Text = "Glass Estimator";
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox ProductLineSelector;
         private System.Windows.Forms.Button RestButton;
         private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.Button MiscButton;
+        private System.Windows.Forms.ListView ProductLineSelector;
     }
 }
 
