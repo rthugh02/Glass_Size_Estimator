@@ -21,12 +21,16 @@ namespace Glass_Size_Estimator
             {
                 ProductLineSelector.Items.Add(product.Name);
             }
-            ProductLineSelector.ShowItemToolTips = true;
         }
 
         private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //retrieving productline object based on selectedItem
+            string selectedItem = ProductLineSelector.SelectedItems[0].Text;
+            ProductLine productLine = productLines.Where(n => n.Name.Equals(selectedItem)).First();
 
+            //TODO: loop through inputs and examine their type, add corresponding element to input layout
+            //TODO: Do the same for outputs
         }
     }
 }
