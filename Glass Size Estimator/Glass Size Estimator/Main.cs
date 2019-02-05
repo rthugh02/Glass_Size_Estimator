@@ -17,6 +17,10 @@ namespace Glass_Size_Estimator
         {
             productLines = ConfigProductLines;
             InitializeComponent();
+            foreach (var product in productLines)
+            {
+                ProductLineSelector.Items.Add(product.Name);
+            }
         }
 
         private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
