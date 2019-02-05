@@ -4,10 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glass_Size_Estimator.States
+namespace Glass_Size_Estimator
 {
 	class BranchValueState : BranchState
 	{
+		// Constructor
+		public BranchValueState(int stateNumber, int nextState, int nextStateNumber, bool qualifier, float minimum, float maximum) : base(stateNumber, nextState, nextStateNumber, qualifier)
+		{
+			this.Minimum = minimum;
+			this.Maximum = maximum;
+		}
+
 		// The minimum value that is required
 		public float Minimum { get; set; }
 

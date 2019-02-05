@@ -9,6 +9,12 @@ namespace Glass_Size_Estimator
 	// Implements multiplication logic
 	public class MultiplicationState : ArithmeticState
 	{
+		// Constructor
+		public MultiplicationState(int stateNumber, int nextState, float value) : base(stateNumber, nextState, value)
+		{
+			// Do nothing
+		}
+
 		/*
 		 * PROCESS DESCRIPTION: Multiply the given value to the current value in the pipeline.
 		 * INPUT: { Current Value (FLOAT) }

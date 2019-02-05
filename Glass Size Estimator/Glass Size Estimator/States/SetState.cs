@@ -4,11 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glass_Size_Estimator.States
+namespace Glass_Size_Estimator
 {
 	// Implements set logic
 	class SetState : State
 	{
+		// Constructor
+		public SetState(int stateNumber, int nextState, float value) : base(stateNumber, nextState)
+		{
+			this.Value = value;
+		}
+
 		// The value that will be used in the set operation
 		public Object Value { get; set; }
 

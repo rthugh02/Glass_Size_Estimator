@@ -9,6 +9,12 @@ namespace Glass_Size_Estimator
 	// Implements truncating logic
 	public class TruncateState : State
 	{
+		// Constructor
+		public TruncateState(int stateNumber, int nextState) : base(stateNumber, nextState)
+		{
+			// Do Nothing
+		}
+
 		/*
 		 * PROCESS DESCRIPTION: Truncate the given value.
 		 * INPUT: { Current Value (FLOAT) }

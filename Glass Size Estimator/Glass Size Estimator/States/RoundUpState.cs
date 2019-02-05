@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glass_Size_Estimator.States
+namespace Glass_Size_Estimator
 {
 	class RoundUpState : State
 	{
+		// Constructor
+		public RoundUpState(int stateNumber, int nextState, float interval) : base(stateNumber, nextState)
+		{
+			this.Interval = interval;
+		}
+
 		// The interval the current value will be round up to (i.e. nearest quarter -> .25; nearest eighth -> .125)
 		public float Interval { get; set; }
 

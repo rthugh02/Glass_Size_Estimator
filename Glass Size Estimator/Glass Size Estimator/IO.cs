@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-    public class IO
-    {
-        public string Name { get; set; } //i.e MeasuredWidth
-        public string Type { get; set; }
-
-
-
-    }
+	public class IO
+	{
+		public string Name { get; set; } //i.e MeasuredWidth
+		public string Type { get; set; }
+	}
 }

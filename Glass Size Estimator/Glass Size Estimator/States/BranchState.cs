@@ -4,11 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glass_Size_Estimator.States
+namespace Glass_Size_Estimator
 {
 	// Implements branching logic
 	class BranchState : State
 	{
+		// Constructor
+		public BranchState(int stateNumber, int nextState, int nextStateNumber, bool qualifier) : base(stateNumber, nextState)
+		{
+			this.NextStateNumber = nextStateNumber;
+			this.Qualifier = qualifier;
+		}
+
 		// The value that will be used in the set operation
 		public int NextStateNumber { get; set; }
 

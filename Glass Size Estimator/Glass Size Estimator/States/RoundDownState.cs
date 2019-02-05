@@ -8,6 +8,12 @@ namespace Glass_Size_Estimator.States
 {
 	class RoundDownState : State
 	{
+		// Constructor
+		public RoundDownState(int stateNumber, int nextState, float interval) : base(stateNumber, nextState)
+		{
+			this.Interval = interval;
+		}
+
 		// The interval the current value will be round up to (i.e. nearest quarter -> .25; nearest eighth -> .125)
 		public float Interval { get; set; }
 

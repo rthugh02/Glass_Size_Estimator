@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Glass_Size_Estimator.States
+namespace Glass_Size_Estimator
 {
 	class BranchConditionalState : BranchState
 	{
+		// Constructor
+		public BranchConditionalState(int stateNumber, int nextState, int nextStateNumber, bool qualifier, string conditionalName) : base(stateNumber, nextState, nextStateNumber, qualifier)
+		{
+			this.ConditionalName = conditionalName;
+		}
+
 		// The minimum value that is required
 		public string ConditionalName { get; set; }
 

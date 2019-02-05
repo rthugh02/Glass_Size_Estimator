@@ -9,6 +9,12 @@ namespace Glass_Size_Estimator
 	// Implements subtraction logic
 	public class SubtractionState : ArithmeticState
 	{
+		// Constructor
+		public SubtractionState(int stateNumber, int nextState, float value) : base(stateNumber, nextState, value)
+		{
+			// Do nothing
+		}
+
 		/*
 		 * PROCESS DESCRIPTION: Subtract the given value to the current value in the pipeline.
 		 * INPUT: { Current Value (FLOAT) }
