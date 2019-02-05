@@ -2,3 +2,5 @@ obj
 bin
 v15
 
+*.cache
+Glass Size Estimator/Glass Size Estimator/obj/Debug/Glass Size Estimator.csprojAssemblyReference.cache
