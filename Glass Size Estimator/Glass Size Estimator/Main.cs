@@ -42,13 +42,15 @@ namespace Glass_Size_Estimator
 
                     if (property.Name.Equals("FloatInputs", StringComparison.OrdinalIgnoreCase))
                     {
-                        List<TextBox> floatcontrols = new List<TextBox>();
                         foreach (string elementTitle in elementsToAdd)
                         {
+                            Label title = new Label();
+                            title.Text = elementTitle;
+                            title.Anchor = AnchorStyles.Bottom;
                             TextBox inputTextBox = new TextBox();
-                            floatcontrols.Add(inputTextBox);
+                            InputLayoutPanel.Controls.Add(title);
+                            InputLayoutPanel.Controls.Add(inputTextBox);
                         }
-                        InputLayoutPanel.Controls.AddRange(floatcontrols.ToArray());
                     }
                 }
             }
