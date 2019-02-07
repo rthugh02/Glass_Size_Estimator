@@ -36,7 +36,8 @@ namespace Glass_Size_Estimator
 					foreach (var productLine in productListJson.ProductLines) // Look at each product line in the config
 					{
 						// Create a new product line
-						ProductLine product = new ProductLine((string)productLine.Name);
+						ProductLine product = new ProductLine(productLine);
+                        
 
 						foreach (var outputLogic in productLine.Logic) // Look at each logic tree for each possible output
 						{

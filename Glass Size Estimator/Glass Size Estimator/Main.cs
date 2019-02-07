@@ -31,6 +31,27 @@ namespace Glass_Size_Estimator
 
             //TODO: loop through inputs and examine their type, add corresponding element to input layout
             //TODO: Do the same for outputs
+
+            foreach (var property in productLine.GetType().GetProperties()) //Getting the properties of the ProductLine type to Loop through
+            {
+                var value = property.GetValue(productLine); //Getting the value of the given property from the actual ProductLine object
+
+                if (value is List<string> && ((List<string>)Convert.ChangeType(value, typeof(List<string>))).Count > 0) //If the value of the property is a List<string> and has a count > 0:
+                {
+                    List<string> elementsToAdd = ((List<string>)Convert.ChangeType(value, typeof(List<string>)));
+
+                    if (property.Name.Equals("FloatInputs", StringComparison.OrdinalIgnoreCase))
+                    {
+                        List<TextBox> floatcontrols = new List<TextBox>();
+                        foreach (string elementTitle in elementsToAdd)
+                        {
+                            TextBox inputTextBox = new TextBox();
+                            floatcontrols.Add(inputTextBox);
+                        }
+                        InputLayoutPanel.Controls.AddRange(floatcontrols.ToArray());
+                    }
+                }
+            }
         }
     }
 }
