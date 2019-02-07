@@ -26,6 +26,8 @@ namespace Glass_Size_Estimator
         private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             //retrieving productline object based on selectedItem
+            if (ProductLineSelector.SelectedItems.Count == 0)
+                return;
             string selectedItem = ProductLineSelector.SelectedItems[0].Text;
             ProductLine productLine = productLines.Where(n => n.Name.Equals(selectedItem)).First();
 
