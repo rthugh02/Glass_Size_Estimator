@@ -49,7 +49,8 @@ namespace Glass_Size_Estimator
 								var state = outputLogic.First[i];
 								State newState;
 
-								// Constructors for arithmetic states (NOTE: By default, the next state is automatically the next state)
+								// (NOTE: By default, the next state is automatically the next state)
+								// Constructors for arithmetic states 
 								if ("Addition".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 								{
 									newState = new AdditionState(i, i + 1, (int)state.Value);
@@ -66,6 +67,48 @@ namespace Glass_Size_Estimator
 								{
 									newState = new DivisionState(i, i + 1, (int)state.Value);
 								}
+								// Constructors for rounding states
+								else if ("RoundDown".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new RoundDownState(i, i + 1, (int)state.Interval);
+								}
+								else if ("RoundUp".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new RoundUpState(i, i + 1, (int)state.Interval);
+								}
+								// Constructors for branching states
+								else if ("Branch".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new BranchState(i, i + 1, (int)state.NextState, true);
+								}
+								else if ("BranchConditional".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new BranchConditionalState(i, i + 1, (int)state.NextState, true, (string)state.ConditionalName);
+								}
+								else if ("BranchValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new BranchValueState(i, i + 1, (int)state.NextState, true, (int)state.Minimum, (int)state.Maximum);
+								}
+								// Constructor for set states
+								else if ("SetValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new SetValueState(i, i + 1, (int)state.Value);
+								}
+								else if ("SetConditional".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new SetConditionalState(i, i + 1, (bool)state.Value);
+								}
+								// Constructor for truncate state
+								else if ("Truncate".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new TruncateState(i, i + 1);
+								}
+								// Constructor for end state
+								else if ("End".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new EndState(i, i + 1);
+								}
+								// If 'Operation' does not match any existing state replace it with an end state
 								else
 								{
 									newState = new EndState(i, i + 1);

@@ -76,8 +76,8 @@
             "Value": 1.625
           },
           {
-            "Operation": "BranchBoolean",
-            "ConditionalName": "Clear Sweep",
+            "Operation": "BranchConditional",
+            "ConditionalName": "ClearSweep",
             "Qualifier": false,
             "NextState": 3
           },
@@ -112,7 +112,7 @@
             "Qualifier": true
           },
           {
-            "Operation": "SetValue",
+            "Operation": "SetEnum",
             "Value": "ZD1028"
           },
           {
@@ -120,7 +120,7 @@
             "NextState": 7
           },
           {
-            "Operation": "SetValue",
+            "Operation": "SetEnum",
             "Value": "ZD1006"
           },
           {

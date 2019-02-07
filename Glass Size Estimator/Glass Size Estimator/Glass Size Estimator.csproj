@@ -57,7 +57,8 @@
     <Compile Include="States\RoundDownState.cs" />
     <Compile Include="States\RoundUpState.cs" />
     <Compile Include="States\EndState.cs" />
-    <Compile Include="States\SetState.cs" />
+    <Compile Include="States\SetConditionalState.cs" />
+    <Compile Include="States\SetValueState.cs" />
     <Compile Include="States\TruncateState.cs" />
     <Compile Include="States\DivisionState.cs" />
     <Compile Include="States\MultiplicationState.cs" />

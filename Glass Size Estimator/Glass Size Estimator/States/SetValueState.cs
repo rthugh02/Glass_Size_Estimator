@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace Glass_Size_Estimator
 {
 	// Implements set logic
-	class SetState : State
+	class SetValueState : State
 	{
 		// Constructor
-		public SetState(int stateNumber, int nextState, float value) : base(stateNumber, nextState)
+		public SetValueState(int stateNumber, int nextState, float value) : base(stateNumber, nextState)
 		{
 			this.Value = value;
 		}
 
 		// The value that will be used in the set operation
-		public Object Value { get; set; }
+		public float Value { get; set; }
 
 		/*
 		 * PROCESS DESCRIPTION: Set the current value in the pipeline to the given value.
