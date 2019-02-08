@@ -20,9 +20,9 @@ namespace Glass_Size_Estimator
 
 		/*
 		 * PROCESS DESCRIPTION: Set the current value in the pipeline to the given value.
-		 * INPUT: { Current Value (FLOAT|ENUM|BOOL) }
-		 * PARAMETERS: { Value (FLOAT|ENUM|BOOL) }
-		 * OUTPUT: { New Value (FLOAT|ENUM|BOOL) }
+		 * INPUT: { Current Value (FLOAT) }
+		 * PARAMETERS: { Value (FLOAT) }
+		 * OUTPUT: { New Value (FLOAT) }
 		 */
 		public override void Process()
 		{

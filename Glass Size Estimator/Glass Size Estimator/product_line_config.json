@@ -113,7 +113,8 @@
           },
           {
             "Operation": "SetEnum",
-            "Value": "ZD1028"
+            "Value": "ZD1028",
+            "Category": "WallJamb"
           },
           {
             "Operation": "Branch",
@@ -121,7 +122,8 @@
           },
           {
             "Operation": "SetEnum",
-            "Value": "ZD1006"
+            "Value": "ZD1006",
+            "Category": "WallJamb"
           },
           {
             "Operation": "Branch",

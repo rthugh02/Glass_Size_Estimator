@@ -32,30 +32,29 @@ All types of output that will be calculated between all of the product lines
 
 All states of operations that will be utilized in the logic for all product lines
 
-* Still need to implement states that require lists of objects
-+ Currently being parsed
+\* Still need to implement states that require lists of objects
 
 | States | Description |
 |--------|-------------|
-| +float SetValue(float value) | Set the current value in the pipeline to the given value |
-| *float SetEnum(enum value) | Set the current value in the pipeline to the given value |
-| +float SetConditional(bool value) | Set the current value in the pipeline to the given value |
-| +float Addition(float value) | Add the given value to the current value in the pipeline |
-| +float Subtraction(float value) | Subtract the given value from the current value in the pipeline |
-| +float Multiplication(float value) | Multiply the given value by the current value in the pipeline |
-| +float Division(float value) | Divide the given value to the desired value by the current value in the pipeline |
+| float SetValue(float value) | Set the current value in the pipeline to the given value |
+| float SetEnum(string value, string category) | Set the current value in the pipeline to the given value |
+| float SetConditional(bool value) | Set the current value in the pipeline to the given value |
+| float Addition(float value) | Add the given value to the current value in the pipeline |
+| float Subtraction(float value) | Subtract the given value from the current value in the pipeline |
+| float Multiplication(float value) | Multiply the given value by the current value in the pipeline |
+| float Division(float value) | Divide the given value to the desired value by the current value in the pipeline |
+| float RoundUp(Float Interval) | Round up the current value in the pipeline to the next available cutoff (i.e. Next 1/2" or next whole number) |
+| float RoundDown(Float Interval) | Round down the current value in the pipeline to the next available cutoff (i.e. Next 1/2" or next whole number) |
+| void Branch(int nextStep) | Branch to another path |
+| void BranchConditional(string ConditionalName, bool qualifier, int nextStep) | Branch to another path if the current boolean in the pipeline is true/false in the list |
+| void BranchSeries(String[] Series, bool qualifier, int nextStep) | Branch to another path if the current series in the pipeline is included/not included in the list |
+| void BranchConfiguration(String[] Configuration, bool qualifier, int nextStep) | Branch to another path if the current configuration in the pipeline is included/not included in the list |
+| void BranchValue(float minimum, float maximum, bool qualifier, int nextStep) | Branch to another path if the current value in the pipeline is included /not included within the given range (inclusive) |
+| float Truncate() | Truncate the current value in the pipeline |
+| void End() | Signals the end of the logic and flags the current value in the pipeline to be final
 | *float RoundUp(List<> StockListing) | Round up the current value in the pipeline to the next available size in the given stock listing |
 | *float RoundDown(List<> StockListing) | Round down the current value in the pipeline to the next available size in the given stock listing |
-| +float RoundUp(Float Interval) | Round up the current value in the pipeline to the next available cutoff (i.e. Next 1/2" or next whole number) |
-| +float RoundDown(Float Interval) | Round down the current value in the pipeline to the next available cutoff (i.e. Next 1/2" or next whole number) |
-| +void Branch(int nextStep) | Branch to another path |
-| +void BranchConditional(string ConditionalName, bool qualifier, int nextStep) | Branch to another path if the current boolean in the pipeline is true/false in the list |
-| *void BranchSeries(List<> Series, bool qualifier, int nextStep) | Branch to another path if the current series in the pipeline is included/not included in the list |
-| *void BranchConfiguration(List<> Configuration, bool qualifier, int nextStep) | Branch to another path if the current configuration in the pipeline is included/not included in the list |
-| +void BranchValue(float minimum, float maximum, bool qualifier, int nextStep) | Branch to another path if the current value in the pipeline is included /not included within the given range (inclusive) |
-| +float Truncate() | Truncate the current value in the pipeline |
 | *bool CheckStockListing(List<> StockListing) | Return whether or not the current value is available in the given stock listing |
-| +void End() | Signals the end of the logic and flags the current value in the pipeline to be final
 
 ### UI Generation
 
@@ -65,7 +64,7 @@ All types and their corresponding UI element
 |------|-----------------------|
 | FLOAT | Text Area |
 | INT | Text Area |
-| ENUM | Dropdown List |
+| ENUM | Dropdown List (input) / Text Area (output) |
 | BOOLEAN | Checkbox |
 | COORDINATE | Text Area |
 
@@ -151,7 +150,7 @@ All types and their corresponding UI element
           },
           {
             "Operation": "BranchConditional",
-            "ConditionalName": "Clear Sweep",
+            "ConditionalName": "ClearSweep",
             "Qualifier": false,
             "NextState": 3
           },
@@ -187,7 +186,8 @@ All types and their corresponding UI element
           },
           {
             "Operation": "SetEnum",
-            "Value": "ZD1028"
+            "Value": "ZD1028",
+            "Category": "WallJamb"
           },
           {
             "Operation": "Branch",
@@ -195,7 +195,8 @@ All types and their corresponding UI element
           },
           {
             "Operation": "SetEnum",
-            "Value": "ZD1006"
+            "Value": "ZD1006",
+            "Category": "WallJamb"
           },
           {
             "Operation": "Branch",

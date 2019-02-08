@@ -37,7 +37,7 @@ namespace Glass_Size_Estimator
 					{
 						// Create a new product line
 						ProductLine product = new ProductLine(productLine);
-                        
+
 
 						foreach (var outputLogic in productLine.Logic) // Look at each logic tree for each possible output
 						{
@@ -90,6 +90,14 @@ namespace Glass_Size_Estimator
 								{
 									newState = new BranchValueState(i, i + 1, (int)state.NextState, true, (int)state.Minimum, (int)state.Maximum);
 								}
+								else if ("BranchSeries".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new BranchSeriesState(i, i + 1, (int)state.NextState, true, (string[])state.Series);
+								}
+								else if ("BranchConfiguration".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new BranchConfigurationState(i, i + 1, (int)state.NextState, true, (string[])state.Configurations);
+								}
 								// Constructor for set states
 								else if ("SetValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 								{
@@ -98,6 +106,10 @@ namespace Glass_Size_Estimator
 								else if ("SetConditional".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 								{
 									newState = new SetConditionalState(i, i + 1, (bool)state.Value);
+								}
+								else if ("SetEnum".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+								{
+									newState = new SetEnumState(i, i + 1, (string)state.Value, (string)state.Category);
 								}
 								// Constructor for truncate state
 								else if ("Truncate".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))

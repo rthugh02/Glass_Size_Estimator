@@ -49,15 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Configuration.cs" />
+    <Compile Include="Enums\Series.cs" />
+    <Compile Include="Enums\WallJamb.cs" />
+    <Compile Include="Enums\EnumManager.cs" />
     <Compile Include="States\AdditionState.cs" />
     <Compile Include="States\ArithmeticState.cs" />
+    <Compile Include="States\BranchConfigurationState.cs" />
     <Compile Include="States\BranchState.cs" />
     <Compile Include="States\BranchConditionalState.cs" />
+    <Compile Include="States\BranchSeriesState.cs" />
     <Compile Include="States\BranchValueState.cs" />
     <Compile Include="States\RoundDownState.cs" />
     <Compile Include="States\RoundUpState.cs" />
     <Compile Include="States\EndState.cs" />
     <Compile Include="States\SetConditionalState.cs" />
+    <Compile Include="States\SetEnumState.cs" />
     <Compile Include="States\SetValueState.cs" />
     <Compile Include="States\TruncateState.cs" />
     <Compile Include="States\DivisionState.cs" />
