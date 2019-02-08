@@ -89,7 +89,7 @@
             this.ButtonLayoutPanel.Name = "ButtonLayoutPanel";
             this.ButtonLayoutPanel.RowCount = 1;
             this.ButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.ButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.ButtonLayoutPanel.Size = new System.Drawing.Size(754, 49);
             this.ButtonLayoutPanel.TabIndex = 0;
             // 
@@ -113,7 +113,7 @@
             this.InputLayoutPanel.RowCount = 2;
             this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.InputLayoutPanel.Size = new System.Drawing.Size(200, 100);
+            this.InputLayoutPanel.Size = new System.Drawing.Size(401, 100);
             this.InputLayoutPanel.TabIndex = 5;
             // 
             // OutputLayoutPanel
@@ -126,7 +126,7 @@
             this.OutputLayoutPanel.RowCount = 2;
             this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.OutputLayoutPanel.Size = new System.Drawing.Size(200, 100);
+            this.OutputLayoutPanel.Size = new System.Drawing.Size(401, 100);
             this.OutputLayoutPanel.TabIndex = 6;
             // 
             // Main

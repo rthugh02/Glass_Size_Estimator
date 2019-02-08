@@ -26,6 +26,8 @@ namespace Glass_Size_Estimator
         private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
             //retrieving productline object based on selectedItem
+            if (ProductLineSelector.SelectedItems.Count == 0)
+                return;
             string selectedItem = ProductLineSelector.SelectedItems[0].Text;
             ProductLine productLine = productLines.Where(n => n.Name.Equals(selectedItem)).First();
 
@@ -42,13 +44,15 @@ namespace Glass_Size_Estimator
 
                     if (property.Name.Equals("FloatInputs", StringComparison.OrdinalIgnoreCase))
                     {
-                        List<TextBox> floatcontrols = new List<TextBox>();
                         foreach (string elementTitle in elementsToAdd)
                         {
+                            Label title = new Label();
+                            title.Text = elementTitle;
+                            title.Anchor = AnchorStyles.Bottom;
                             TextBox inputTextBox = new TextBox();
-                            floatcontrols.Add(inputTextBox);
+                            InputLayoutPanel.Controls.Add(title);
+                            InputLayoutPanel.Controls.Add(inputTextBox);
                         }
-                        InputLayoutPanel.Controls.AddRange(floatcontrols.ToArray());
                     }
                 }
             }
