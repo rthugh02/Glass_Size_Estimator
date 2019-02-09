@@ -15,21 +15,21 @@
       "Logic": {
         "ResultingWidth": [
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0,
             "Maximum": 0.125,
             "NextState": 3,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.1875,
             "Maximum": 0.6875,
             "NextState": 5,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.75,
             "Maximum": 1,
             "NextState": 7,
@@ -91,21 +91,21 @@
         ],
         "WallJamb": [
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0,
             "Maximum": 0.125,
             "NextState": 3,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.1875,
             "Maximum": 0.6875,
             "NextState": 5,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.75,
             "Maximum": 1,
             "NextState": 3,

@@ -22,7 +22,8 @@ namespace Glass_Size_Estimator
 		 */
 		public override void Process()
 		{
-			// Do nothing
+			// Set the input to be the output by default
+			this.Output = this.Input;
 		}
 	}
 }

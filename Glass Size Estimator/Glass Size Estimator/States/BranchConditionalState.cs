@@ -19,12 +19,15 @@ namespace Glass_Size_Estimator
 
 		/*
 		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
-		 * INPUT: { Current Value (FLOAT) }
+		 * INPUT: { Current Value (BOOL) }
 		 * PARAMETERS: { Next State Number (INT) }
 		 * OUTPUT: { None }
 		 */
 		public override void Process()
 		{
+			// Set the input to be the output by default
+			this.Output = this.Input;
+
 			// Find the requested boolean in the dictionary
 			if (Booleans.ContainsKey(this.ConditionalName))
 			{

@@ -28,6 +28,9 @@ namespace Glass_Size_Estimator
 		 */
 		public override void Process()
 		{
+			// Set the input to be the output by default
+			this.Output = this.Input;
+
 			// Determine whether or not the current input series is contained in the list of given series
 			bool result = SeriesList.Contains((Series)this.Input);
 

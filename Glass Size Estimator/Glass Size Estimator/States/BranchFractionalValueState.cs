@@ -6,20 +6,13 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-	class BranchValueState : BranchState
+	class BranchFractionalValue : BranchValueState
 	{
 		// Constructor
-		public BranchValueState(int stateNumber, int nextState, int nextStateNumber, bool qualifier, float minimum, float maximum) : base(stateNumber, nextState, nextStateNumber, qualifier)
+		public BranchFractionalValue(int stateNumber, int nextState, int nextStateNumber, bool qualifier, float minimum, float maximum) : base(stateNumber, nextState, nextStateNumber, qualifier, minimum, maximum)
 		{
-			this.Minimum = minimum;
-			this.Maximum = maximum;
+			// Do nothing
 		}
-
-		// The minimum value that is required
-		public float Minimum { get; set; }
-
-		// The maximum value that is required
-		public float Maximum { get; set; }
 
 		/*
 		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
@@ -33,7 +26,7 @@ namespace Glass_Size_Estimator
 			this.Output = this.Input;
 
 			// Determine whether or not the current value is within range
-			bool result = (float)this.Input >= this.Minimum && (float)this.Input <= this.Maximum;
+			bool result = ((float)this.Input - Math.Truncate((float)this.Input)) >= this.Minimum && ((float)this.Input - Math.Truncate((float)this.Input)) <= this.Maximum;
 
 			// Compare the results to the desired qualifer
 			if (result == this.Qualifier)

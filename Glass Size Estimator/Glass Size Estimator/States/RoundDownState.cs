@@ -26,7 +26,7 @@ namespace Glass_Size_Estimator
 		public override void Process()
 		{
 			// For explanation see "The Ultimate Rounding Function" - http://rajputyh.blogspot.com/2014/09/the-ultimate-rounding-function.html
-			this.Output = Math.Floor((float)this.Input / this.Interval + 0.5f) * this.Interval;
+			this.Output = (float)Math.Floor((float)this.Input / this.Interval + 0f) * this.Interval;
 		}
 	}
 }

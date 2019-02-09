@@ -50,6 +50,7 @@ All states of operations that will be utilized in the logic for all product line
 | void BranchSeries(String[] Series, bool qualifier, int nextStep) | Branch to another path if the current series in the pipeline is included/not included in the list |
 | void BranchConfiguration(String[] Configuration, bool qualifier, int nextStep) | Branch to another path if the current configuration in the pipeline is included/not included in the list |
 | void BranchValue(float minimum, float maximum, bool qualifier, int nextStep) | Branch to another path if the current value in the pipeline is included /not included within the given range (inclusive) |
+| void BranchFractionalValue(float minimum, float maximum, bool qualifier, int nextStep) | Branch to another path if the current value's fractional value in the pipeline is included /not included within the given range (inclusive) |
 | float Truncate() | Truncate the current value in the pipeline |
 | void End() | Signals the end of the logic and flags the current value in the pipeline to be final
 | *float RoundUp(List<> StockListing) | Round up the current value in the pipeline to the next available size in the given stock listing |
@@ -88,21 +89,21 @@ All types and their corresponding UI element
       "Logic": {
         "ResultingWidth": [
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0,
             "Maximum": 0.125,
             "NextState": 3,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.1875,
             "Maximum": 0.6875,
             "NextState": 5,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.75,
             "Maximum": 1,
             "NextState": 7,
@@ -164,21 +165,21 @@ All types and their corresponding UI element
         ],
         "WallJamb": [
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0,
             "Maximum": 0.125,
             "NextState": 3,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.1875,
             "Maximum": 0.6875,
             "NextState": 5,
             "Qualifier": true
           },
           {
-            "Operation": "BranchValue",
+            "Operation": "BranchFractionalValue",
             "Minimum": 0.75,
             "Maximum": 1,
             "NextState": 3,

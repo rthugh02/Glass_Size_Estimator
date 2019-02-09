@@ -30,6 +30,9 @@ namespace Glass_Size_Estimator
 		 */
 		public override void Process()
 		{
+			// Set the input to be the output by default
+			this.Output = this.Input;
+
 			this.NextState = this.NextStateNumber;
 		}
 	}
