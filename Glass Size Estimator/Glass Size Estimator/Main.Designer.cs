@@ -35,6 +35,8 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.InputLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.OutputLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.InputLabel = new System.Windows.Forms.Label();
+            this.OutputLabel = new System.Windows.Forms.Label();
             this.ButtonLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,10 +112,12 @@
             this.InputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.InputLayoutPanel.Location = new System.Drawing.Point(404, 107);
             this.InputLayoutPanel.Name = "InputLayoutPanel";
-            this.InputLayoutPanel.RowCount = 2;
-            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.InputLayoutPanel.Size = new System.Drawing.Size(401, 100);
+            this.InputLayoutPanel.RowCount = 4;
+            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00062F));
+            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00063F));
+            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.00063F));
+            this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.99813F));
+            this.InputLayoutPanel.Size = new System.Drawing.Size(533, 142);
             this.InputLayoutPanel.TabIndex = 5;
             // 
             // OutputLayoutPanel
@@ -121,19 +125,43 @@
             this.OutputLayoutPanel.ColumnCount = 2;
             this.OutputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.OutputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.OutputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.OutputLayoutPanel.Location = new System.Drawing.Point(404, 420);
             this.OutputLayoutPanel.Name = "OutputLayoutPanel";
-            this.OutputLayoutPanel.RowCount = 2;
-            this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.OutputLayoutPanel.Size = new System.Drawing.Size(401, 100);
+            this.OutputLayoutPanel.RowCount = 3;
+            this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.OutputLayoutPanel.Size = new System.Drawing.Size(533, 125);
             this.OutputLayoutPanel.TabIndex = 6;
+            // 
+            // InputLabel
+            // 
+            this.InputLabel.AutoSize = true;
+            this.InputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InputLabel.Location = new System.Drawing.Point(531, 48);
+            this.InputLabel.Name = "InputLabel";
+            this.InputLabel.Size = new System.Drawing.Size(65, 25);
+            this.InputLabel.TabIndex = 7;
+            this.InputLabel.Text = "Inputs";
+            // 
+            // OutputLabel
+            // 
+            this.OutputLabel.AutoSize = true;
+            this.OutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OutputLabel.Location = new System.Drawing.Point(532, 359);
+            this.OutputLabel.Name = "OutputLabel";
+            this.OutputLabel.Size = new System.Drawing.Size(81, 25);
+            this.OutputLabel.TabIndex = 8;
+            this.OutputLabel.Text = "Outputs";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1322, 696);
+            this.Controls.Add(this.OutputLabel);
+            this.Controls.Add(this.InputLabel);
             this.Controls.Add(this.OutputLayoutPanel);
             this.Controls.Add(this.InputLayoutPanel);
             this.Controls.Add(this.ButtonLayoutPanel);
@@ -154,6 +182,8 @@
         private System.Windows.Forms.Button ResetButton;
         private System.Windows.Forms.TableLayoutPanel InputLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel OutputLayoutPanel;
+        private System.Windows.Forms.Label InputLabel;
+        private System.Windows.Forms.Label OutputLabel;
     }
 }
 

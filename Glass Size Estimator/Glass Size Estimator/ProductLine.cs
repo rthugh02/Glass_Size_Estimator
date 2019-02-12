@@ -14,7 +14,7 @@ namespace Glass_Size_Estimator
 			this.Name = (string)JSONProductLine.Name;
 			Logic = new Dictionary<string, StateMachine>();
 			FloatInputs = new List<string>();
-			EnumInputs = new List<string>();
+            EnumInputs = new List<Dictionary<string, List<string>>>();
 			BoolInputs = new List<string>();
 			IntInputs = new List<string>();
 			FloatOutputs = new List<string>();
@@ -36,7 +36,11 @@ namespace Glass_Size_Estimator
 		public string Name { get; set; } // The name of the product line
 		public List<IO> Input { get; set; } // The types of inputs that will be used for the product line
 		public List<string> FloatInputs { get; set; } //List of names of float input values
-		public List<string> EnumInputs { get; set; } //List for enum inputs needed
+
+        public List<Dictionary<string, List<string>>> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
+        therefore all enum inputs will be a list of dictionaries, 
+        with each dictionary containing the name of the enum input and a list of the options to select */
+
 		public List<string> BoolInputs { get; set; } //List for boolean inputs needed
 		public List<string> IntInputs { get; set; } //List for int inputs needed
 		public List<string> FloatOutputs { get; set; } //As above, so below
