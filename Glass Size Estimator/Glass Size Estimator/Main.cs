@@ -38,7 +38,7 @@ namespace Glass_Size_Estimator
 			{
 				var value = property.GetValue(productLine); //Getting the value of the given property from the actual ProductLine object
 
-				if ((value is List<string> || value is List<Dictionary<string, List<string>>>) && ((List<string>)Convert.ChangeType(value, typeof(List<string>))).Count > 0) //If the value of the property is a List<string> and has a count > 0:
+				if (value is List<string> && ((List<string>)Convert.ChangeType(value, typeof(List<string>))).Count > 0) //If the value of the property is a List<string> and has a count > 0:
 				{
 					List<string> elementsToAdd = ((List<string>)Convert.ChangeType(value, typeof(List<string>)));
 
@@ -68,22 +68,21 @@ namespace Glass_Size_Estimator
 							InputLayoutPanel.Controls.Add(inputCheckBox);
 						}
 					}
-					else if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
-					{
-						foreach (string elementTitle in elementsToAdd)
-						{
-							Label title = new Label();
-							title.Text = elementTitle + ":";
-							title.Anchor = AnchorStyles.Bottom;
-
-							//TODO: figure out how to build a drop down for each of the Enums, ListBox maybe? Or some other Control
-							//ListBox inputListBox = new ListBox();
-							//InputLabel.Anchor = AnchorStyles.Bottom;
-							//InputLayoutPanel.Controls.Add(title);
-							//InputLayoutPanel.Controls.Add(inputListBox);
-						}
-					}
 				}
+                else if (value is List<Dictionary<string, List<string>>>)
+                {
+                    if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
+                    {
+                        List<Dictionary<string, List<string>>> elementsToAdd = (List<Dictionary<string, List<string>>>)Convert.ChangeType(value, typeof(List<Dictionary<string, List<string>>>));
+
+                        //TODO: figure out how to build a drop down for each of the Enums, ListBox maybe? Or some other Control
+                        //ListBox inputListBox = new ListBox();
+                        //InputLabel.Anchor = AnchorStyles.Bottom;
+                        //InputLayoutPanel.Controls.Add(title);
+                        //InputLayoutPanel.Controls.Add(inputListBox);
+                      
+                    }
+                }
 			}
 		}
 	}
