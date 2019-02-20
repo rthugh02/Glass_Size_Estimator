@@ -45,29 +45,24 @@ namespace Glass_Size_Estimator
 					if (property.Name.Equals("FloatInputs", StringComparison.OrdinalIgnoreCase))
 					{
 						foreach (string elementTitle in elementsToAdd)
-						{
-							Label title = new Label();
-							title.Text = elementTitle + ":";
-							title.Anchor = AnchorStyles.Bottom;
-							TextBox inputTextBox = new TextBox();
-							inputTextBox.Anchor = AnchorStyles.Bottom;
-							InputLayoutPanel.Controls.Add(title);
-							InputLayoutPanel.Controls.Add(inputTextBox);
-						}
-					}
+                        {
+                            AddFloatInput(elementTitle);
+                        }
+                    }
 					else if (property.Name.Equals("BoolInputs", StringComparison.OrdinalIgnoreCase))
 					{
 						foreach (string elementTitle in elementsToAdd)
-						{
-							Label title = new Label();
-							title.Text = elementTitle + ":";
-							title.Anchor = AnchorStyles.Bottom;
-							CheckBox inputCheckBox = new CheckBox();
-							inputCheckBox.Anchor = AnchorStyles.Bottom;
-							InputLayoutPanel.Controls.Add(title);
-							InputLayoutPanel.Controls.Add(inputCheckBox);
-						}
-					}
+                        {
+                            AddBoolInput(elementTitle);
+                        }
+                    }
+                    else if (property.Name.Equals("FloatOutputs", StringComparison.OrdinalIgnoreCase))
+                    {
+                        foreach (string elementTitle in elementsToAdd)
+                        {
+                            AddFloatOutput(elementTitle);
+                        }
+                    }
 				}
                 else if (value is List<Dictionary<string, List<string>>>)
                 {
@@ -85,5 +80,59 @@ namespace Glass_Size_Estimator
                 }
 			}
 		}
-	}
+
+
+        private void EstimateButton_Click(object sender, EventArgs e)
+        {
+            string inputTitle = null;
+            string textBoxInput = null;
+            List<State> StatesForMachine = new List<State>();
+            foreach (dynamic control in InputLayoutPanel.Controls)
+            {
+                if(control is Label)
+                {
+                    inputTitle = control.Text;
+                }
+                if(control is TextBox && (inputTitle.Contains("Width") || inputTitle.Contains("Height")) )
+                {
+                    textBoxInput = control.Text;
+                }
+            }
+        }
+
+        private void AddFloatOutput(string elementTitle)
+        {
+            Label title = new Label();
+            title.Text = elementTitle + ":";
+            title.Anchor = AnchorStyles.Bottom;
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.Anchor = AnchorStyles.Bottom;
+            inputTextBox.ReadOnly = true;
+            OutputLayoutPanel.Controls.Add(title);
+            OutputLayoutPanel.Controls.Add(inputTextBox);
+        }
+
+        private void AddBoolInput(string elementTitle)
+        {
+            Label title = new Label();
+            title.Text = elementTitle + ":";
+            title.Anchor = AnchorStyles.Bottom;
+            CheckBox inputCheckBox = new CheckBox();
+            inputCheckBox.Anchor = AnchorStyles.Bottom;
+            InputLayoutPanel.Controls.Add(title);
+            InputLayoutPanel.Controls.Add(inputCheckBox);
+        }
+
+        private void AddFloatInput(string elementTitle)
+        {
+            Label title = new Label();
+            title.Text = elementTitle + ":";
+            title.Anchor = AnchorStyles.Bottom;
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.Anchor = AnchorStyles.Bottom;
+            InputLayoutPanel.Controls.Add(title);
+            InputLayoutPanel.Controls.Add(inputTextBox);
+        }
+
+    }
 }

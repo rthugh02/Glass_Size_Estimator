@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.ExportButton = new System.Windows.Forms.Button();
-            this.MiscButton = new System.Windows.Forms.Button();
+            this.EstimateButton = new System.Windows.Forms.Button();
             this.ProductLineSelector = new System.Windows.Forms.ListView();
             this.ButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ResetButton = new System.Windows.Forms.Button();
@@ -50,15 +50,16 @@
             this.ExportButton.Text = "Export";
             this.ExportButton.UseVisualStyleBackColor = true;
             // 
-            // MiscButton
+            // EstimateButton
             // 
-            this.MiscButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.MiscButton.Location = new System.Drawing.Point(539, 3);
-            this.MiscButton.Name = "MiscButton";
-            this.MiscButton.Size = new System.Drawing.Size(178, 43);
-            this.MiscButton.TabIndex = 3;
-            this.MiscButton.Text = "Misc.";
-            this.MiscButton.UseVisualStyleBackColor = true;
+            this.EstimateButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.EstimateButton.Location = new System.Drawing.Point(539, 3);
+            this.EstimateButton.Name = "EstimateButton";
+            this.EstimateButton.Size = new System.Drawing.Size(178, 43);
+            this.EstimateButton.TabIndex = 3;
+            this.EstimateButton.Text = "Estimate";
+            this.EstimateButton.UseVisualStyleBackColor = true;
+            this.EstimateButton.Click += new System.EventHandler(this.EstimateButton_Click);
             // 
             // ProductLineSelector
             // 
@@ -84,7 +85,7 @@
             this.ButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.ButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.ButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.ButtonLayoutPanel.Controls.Add(this.MiscButton, 2, 0);
+            this.ButtonLayoutPanel.Controls.Add(this.EstimateButton, 2, 0);
             this.ButtonLayoutPanel.Controls.Add(this.ResetButton, 0, 0);
             this.ButtonLayoutPanel.Controls.Add(this.ExportButton, 1, 0);
             this.ButtonLayoutPanel.Location = new System.Drawing.Point(368, 625);
@@ -176,7 +177,7 @@
 
         #endregion
         private System.Windows.Forms.Button ExportButton;
-        private System.Windows.Forms.Button MiscButton;
+        private System.Windows.Forms.Button EstimateButton;
         private System.Windows.Forms.ListView ProductLineSelector;
         private System.Windows.Forms.TableLayoutPanel ButtonLayoutPanel;
         private System.Windows.Forms.Button ResetButton;

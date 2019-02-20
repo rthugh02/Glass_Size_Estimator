@@ -24,13 +24,18 @@ namespace Glass_Size_Estimator
 
 			foreach (string i in JSONProductLine.Input)
 			{
-				if (i.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
-					FloatInputs.Add(i);
+                if (i.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
+                    FloatInputs.Add(i);
 
-				else if (i.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
-					BoolInputs.Add(i);
-
+                else if (i.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
+                    BoolInputs.Add(i);
 			}
+            foreach(string i in JSONProductLine.Output)
+            {
+                if (i.Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
+                    FloatOutputs.Add(i);
+
+            }
 		}
 
 		public string Name { get; set; } // The name of the product line
