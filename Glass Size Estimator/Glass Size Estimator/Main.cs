@@ -13,6 +13,7 @@ namespace Glass_Size_Estimator
 	public partial class Main : Form
 	{
 		private List<ProductLine> productLines;
+        private ProductLine selectedProduct;
 		public Main(List<ProductLine> ConfigProductLines)
 		{
 			productLines = ConfigProductLines;
@@ -79,13 +80,21 @@ namespace Glass_Size_Estimator
                     }
                 }
 			}
+            selectedProduct = productLine;
 		}
 
 
         private void EstimateButton_Click(object sender, EventArgs e)
         {
+            if (this.selectedProduct == null)
+                return;
+
             string inputTitle = null;
             string textBoxInput = null;
+            float f_input;
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            Dictionary<string, float> floatinputs = new Dictionary<string, float>();
+            Dictionary<string, float> floatoutputs = new Dictionary<string, float>();
             List<State> StatesForMachine = new List<State>();
             foreach (dynamic control in InputLayoutPanel.Controls)
             {
@@ -93,9 +102,38 @@ namespace Glass_Size_Estimator
                 {
                     inputTitle = control.Text;
                 }
-                if(control is TextBox && (inputTitle.Contains("Width") || inputTitle.Contains("Height")) )
+                else if(control is TextBox && inputTitle.Contains("Width"))
                 {
                     textBoxInput = control.Text;
+                    if (float.TryParse(textBoxInput, out f_input))
+                        floatinputs.Add("ResultingWidth", f_input);
+
+                }
+                else if (control is TextBox && inputTitle.Contains("Height"))
+                {
+                    textBoxInput = control.Text;
+                    if (float.TryParse(textBoxInput, out f_input))
+                        floatinputs.Add("ResultingHeight", f_input);
+                }
+                else if (control is CheckBox && inputTitle.Contains("ClearSweep"))
+                {
+                    parameters.Add("ClearSweep", control.Checked);
+                }
+            }
+            foreach(var kvp in floatinputs)
+            {
+                floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(kvp.Value, parameters));
+            }
+            string outputTitle = null;
+            foreach(dynamic control in OutputLayoutPanel.Controls)
+            {
+                if(control is Label)
+                {
+                    outputTitle = control.Text;
+                }
+                else if (control is TextBox)
+                {
+                    control.Text = floatoutputs[outputTitle].ToString();
                 }
             }
         }
@@ -114,7 +152,7 @@ namespace Glass_Size_Estimator
         private void AddFloatOutput(string elementTitle)
         {
             Label title = new Label();
-            title.Text = elementTitle + ":";
+            title.Text = elementTitle;
             title.Anchor = AnchorStyles.Bottom;
             TextBox inputTextBox = new TextBox();
             inputTextBox.Anchor = AnchorStyles.Bottom;
@@ -126,7 +164,7 @@ namespace Glass_Size_Estimator
         private void AddBoolInput(string elementTitle)
         {
             Label title = new Label();
-            title.Text = elementTitle + ":";
+            title.Text = elementTitle;
             title.Anchor = AnchorStyles.Bottom;
             CheckBox inputCheckBox = new CheckBox(); 
             inputCheckBox.Anchor = AnchorStyles.Bottom;
@@ -137,7 +175,7 @@ namespace Glass_Size_Estimator
         private void AddFloatInput(string elementTitle)
         {
             Label title = new Label();
-            title.Text = elementTitle + ":";
+            title.Text = elementTitle;
             title.Anchor = AnchorStyles.Bottom;
             TextBox inputTextBox = new TextBox();
             inputTextBox.Anchor = AnchorStyles.Bottom;

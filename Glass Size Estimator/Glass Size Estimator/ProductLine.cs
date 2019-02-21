@@ -39,7 +39,6 @@ namespace Glass_Size_Estimator
 		}
 
 		public string Name { get; set; } // The name of the product line
-		public List<IO> Input { get; set; } // The types of inputs that will be used for the product line
 		public List<string> FloatInputs { get; set; } //List of names of float input values
 
 		public List<Dictionary<string, List<string>>> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
@@ -52,7 +51,6 @@ namespace Glass_Size_Estimator
 		public List<string> BoolOutputs { get; set; }
 		public List<string> EnumOutputs { get; set; }
 		public List<string> CoordOutputs { get; set; }
-		public List<IO> Output { get; set; } // The types of outputs that will be used for the product line
 		public Dictionary<string, StateMachine> Logic { get; set; } // A collection of state machines that will be used for the product line output calculations
 	}
 }
