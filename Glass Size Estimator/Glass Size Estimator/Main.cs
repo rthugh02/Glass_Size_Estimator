@@ -158,9 +158,9 @@ namespace Glass_Size_Estimator
         {
             Label title = new Label();
             title.Text = elementTitle;
-            title.Anchor = AnchorStyles.Bottom;
+            title.AutoSize = true;
             TextBox inputTextBox = new TextBox();
-            inputTextBox.Anchor = AnchorStyles.Bottom;
+            inputTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             inputTextBox.ReadOnly = true;
             OutputLayoutPanel.Controls.Add(title);
             OutputLayoutPanel.Controls.Add(inputTextBox);
@@ -170,9 +170,9 @@ namespace Glass_Size_Estimator
         {
             Label title = new Label();
             title.Text = elementTitle;
-            title.Anchor = AnchorStyles.Bottom;
+            title.AutoSize = true;
             CheckBox inputCheckBox = new CheckBox(); 
-            inputCheckBox.Anchor = AnchorStyles.Bottom;
+            inputCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             InputLayoutPanel.Controls.Add(title);
             InputLayoutPanel.Controls.Add(inputCheckBox);
         }
@@ -181,9 +181,9 @@ namespace Glass_Size_Estimator
         {
             Label title = new Label();
             title.Text = elementTitle;
-            title.Anchor = AnchorStyles.Bottom;
+            title.AutoSize = true;
             TextBox inputTextBox = new TextBox();
-            inputTextBox.Anchor = AnchorStyles.Bottom;
+            inputTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             InputLayoutPanel.Controls.Add(title);
             InputLayoutPanel.Controls.Add(inputTextBox);
         }
