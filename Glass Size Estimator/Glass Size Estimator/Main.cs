@@ -147,6 +147,11 @@ namespace Glass_Size_Estimator
                 else if (control is CheckBox)
                     control.Checked = false;
             }
+            foreach(dynamic control in OutputLayoutPanel.Controls)
+            {
+                if (control is TextBox)
+                    control.Text = "";
+            }
         }
 
         private void AddFloatOutput(string elementTitle)
