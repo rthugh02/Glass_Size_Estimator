@@ -105,6 +105,7 @@
             this.ResetButton.TabIndex = 4;
             this.ResetButton.Text = "Reset";
             this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // InputLayoutPanel
             // 

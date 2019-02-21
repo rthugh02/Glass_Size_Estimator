@@ -100,6 +100,17 @@ namespace Glass_Size_Estimator
             }
         }
 
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            foreach(dynamic control in InputLayoutPanel.Controls)
+            {
+                if (control is TextBox)
+                    control.Text = "";
+                else if (control is CheckBox)
+                    control.Checked = false;
+            }
+        }
+
         private void AddFloatOutput(string elementTitle)
         {
             Label title = new Label();
@@ -117,7 +128,7 @@ namespace Glass_Size_Estimator
             Label title = new Label();
             title.Text = elementTitle + ":";
             title.Anchor = AnchorStyles.Bottom;
-            CheckBox inputCheckBox = new CheckBox();
+            CheckBox inputCheckBox = new CheckBox(); 
             inputCheckBox.Anchor = AnchorStyles.Bottom;
             InputLayoutPanel.Controls.Add(title);
             InputLayoutPanel.Controls.Add(inputCheckBox);
@@ -133,6 +144,5 @@ namespace Glass_Size_Estimator
             InputLayoutPanel.Controls.Add(title);
             InputLayoutPanel.Controls.Add(inputTextBox);
         }
-
     }
 }
