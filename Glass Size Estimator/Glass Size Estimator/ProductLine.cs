@@ -21,21 +21,26 @@ namespace Glass_Size_Estimator
 			EnumOutputs = new List<string>();
 			BoolOutputs = new List<string>();
 			CoordOutputs = new List<string>();
+			StockGlassLines = new List<string>();
 
 			foreach (string i in JSONProductLine.Input)
 			{
-                if (i.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
-                    FloatInputs.Add(i);
+				if (i.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
+					FloatInputs.Add(i);
 
-                else if (i.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
-                    BoolInputs.Add(i);
+				else if (i.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
+					BoolInputs.Add(i);
 			}
-            foreach(string i in JSONProductLine.Output)
-            {
-                if (i.Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
-                    FloatOutputs.Add(i);
+			foreach (string i in JSONProductLine.Output)
+			{
+				if (i.Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
+					FloatOutputs.Add(i);
 
-            }
+			}
+			foreach (string i in JSONProductLine.StockGlassLine)
+			{
+				StockGlassLines.Add(i);
+			}
 		}
 
 		public string Name { get; set; } // The name of the product line
@@ -51,6 +56,7 @@ namespace Glass_Size_Estimator
 		public List<string> BoolOutputs { get; set; }
 		public List<string> EnumOutputs { get; set; }
 		public List<string> CoordOutputs { get; set; }
+		public List<string> StockGlassLines { get; set; } // List of stock glass lines to check the results against
 		public Dictionary<string, StateMachine> Logic { get; set; } // A collection of state machines that will be used for the product line output calculations
 	}
 }

@@ -28,11 +28,15 @@ All types of output that will be calculated between all of the product lines
 | Hole Size | FLOAT | The size of holes to be placed |
 | Wall Jamb | ENUM | Resulting wall jamb piece to be used: <br> {ZD1028, ZD1006} |
 
+### Stock Glass Lines
+
+A separate configuration file is used to store all measurements of stock glass for each product line.
+
+When defining a product line, the user must also define which lines of stock glass it should compare its resulting measurements with. Once the glass size estimations are completed, a seperate checkbox will be used to indicate whether a stock piece can be used instead.
+
 ### States
 
 All states of operations that will be utilized in the logic for all product lines
-
-\* Still need to implement states that require lists of objects
 
 | States | Description |
 |--------|-------------|
@@ -53,9 +57,6 @@ All states of operations that will be utilized in the logic for all product line
 | void BranchFractionalValue(float minimum, float maximum, bool qualifier, int nextStep) | Branch to another path if the current value's fractional value in the pipeline is included /not included within the given range (inclusive) |
 | float Truncate() | Truncate the current value in the pipeline |
 | void End() | Signals the end of the logic and flags the current value in the pipeline to be final
-| *float RoundUp(List<> StockListing) | Round up the current value in the pipeline to the next available size in the given stock listing |
-| *float RoundDown(List<> StockListing) | Round down the current value in the pipeline to the next available size in the given stock listing |
-| *bool CheckStockListing(List<> StockListing) | Return whether or not the current value is available in the given stock listing |
 
 ### UI Generation
 
@@ -69,7 +70,7 @@ All types and their corresponding UI element
 | BOOLEAN | Checkbox |
 | COORDINATE | Text Area |
 
-### Example JSON CONFIGURATION
+### Example PRODUCT LINE JSON CONFIGURATION
 
 ```
 {
@@ -207,8 +208,86 @@ All types and their corresponding UI element
             "Operation": "End"
           }
         ]
-      }
+      },
+      "StockGlassLine": [
+        "Door_Glass_69_Stall_3/16_Clear",
+        "Door_Glass_69_Stall_3/16_Rain",
+        "Door_Glass_69_Stall_3/16_P5",
+        "Door_Glass_72_Stall_3/16_Clear",
+        "Door_Glass_72_Stall_3/16_Rain",
+        "Door_Glass_72_Stall_3/16_P5",
+        "Door_Glass_75_Stall_3/16_Clear",
+        "Door_Glass_75_Stall_3/16_Rain",
+        "Door_Glass_75_Stall_3/16_P5"
+      ]
     }
   ]
 }
+```
+
+### Example STOCK GLASS LINE JSON Configuration
+
+```
+"Door_Glass_69_Stall_3/16_Clear": [
+    {
+      "Width": 18.8125,
+      "Height": 65
+    },
+    {
+      "Width": 19.8125,
+      "Height": 65
+    },
+    {
+      "Width": 20.8125,
+      "Height": 65
+    },
+    {
+      "Width": 21.8125,
+      "Height": 65
+    },
+    {
+      "Width": 22.8125,
+      "Height": 65
+    },
+    {
+      "Width": 23.8125,
+      "Height": 65
+    },
+    {
+      "Width": 24.8125,
+      "Height": 65
+    },
+    {
+      "Width": 25.8125,
+      "Height": 65
+    },
+    {
+      "Width": 26.8125,
+      "Height": 65
+    },
+    {
+      "Width": 27.8125,
+      "Height": 65
+    },
+    {
+      "Width": 28.8125,
+      "Height": 65
+    },
+    {
+      "Width": 29.8125,
+      "Height": 65
+    },
+    {
+      "Width": 30.8125,
+      "Height": 65
+    },
+    {
+      "Width": 31.8125,
+      "Height": 65
+    },
+    {
+      "Width": 32.8125,
+      "Height": 65
+    }
+  ]
 ```

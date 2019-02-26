@@ -13,7 +13,7 @@ namespace Glass_Size_Estimator
 	public partial class Main : Form
 	{
 		private List<ProductLine> productLines;
-		private Dictionary<string, StockGlassLine> stockGlassLines; // TODO: Will be needed for future stock listing-related states
+		private Dictionary<string, StockGlassLine> stockGlassLines;
 		private ProductLine selectedProduct;
 		public Main(List<ProductLine> ConfigProductLines, Dictionary<string, StockGlassLine> ConfigStockGlassLines)
 		{
@@ -82,9 +82,12 @@ namespace Glass_Size_Estimator
 					}
 				}
 			}
+
+			// By default, add a boolean field to indicate whether the resulting measurements are in stock
+			AddBoolOutput("Can Use Stock Glass?");
+
 			selectedProduct = productLine;
 		}
-
 
 		private void EstimateButton_Click(object sender, EventArgs e)
 		{
@@ -97,6 +100,7 @@ namespace Glass_Size_Estimator
 			Dictionary<string, object> parameters = new Dictionary<string, object>();
 			Dictionary<string, float> floatinputs = new Dictionary<string, float>();
 			Dictionary<string, float> floatoutputs = new Dictionary<string, float>();
+			Dictionary<string, bool> booloutputs = new Dictionary<string, bool>();
 			List<State> StatesForMachine = new List<State>();
 			foreach (dynamic control in InputLayoutPanel.Controls)
 			{
@@ -137,6 +141,19 @@ namespace Glass_Size_Estimator
 				{
 					control.Text = floatoutputs[outputTitle].ToString();
 				}
+				else if (control is CheckBox && outputTitle.Equals("Can Use Stock Glass?"))
+				{
+					bool inStock = false;
+					foreach (string stockGlassLineName in selectedProduct.StockGlassLines)
+					{
+						if (stockGlassLines[stockGlassLineName].Contains(floatoutputs["ResultingWidth"], floatoutputs["ResultingHeight"]))
+						{
+							inStock = true;
+							break;
+						}
+					}
+					control.Checked = inStock;
+				}
 			}
 		}
 
@@ -153,7 +170,21 @@ namespace Glass_Size_Estimator
 			{
 				if (control is TextBox)
 					control.Text = "";
+				else if (control is CheckBox)
+					control.Checked = false;
 			}
+		}
+
+		private void AddBoolOutput(string elementTitle)
+		{
+			Label title = new Label();
+			title.Text = elementTitle;
+			title.AutoSize = true;
+			CheckBox inputCheckBox = new CheckBox();
+			inputCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			inputCheckBox.AutoCheck = false;
+			OutputLayoutPanel.Controls.Add(title);
+			OutputLayoutPanel.Controls.Add(inputCheckBox);
 		}
 
 		private void AddFloatOutput(string elementTitle)
