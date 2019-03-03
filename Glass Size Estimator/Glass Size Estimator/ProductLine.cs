@@ -17,26 +17,135 @@ namespace Glass_Size_Estimator
 			EnumInputs = new List<Dictionary<string, List<string>>>();
 			BoolInputs = new List<string>();
 			IntInputs = new List<string>();
-			FloatOutputs = new List<string>();
-			EnumOutputs = new List<string>();
-			BoolOutputs = new List<string>();
-			CoordOutputs = new List<string>();
+			FloatOutputs = new Dictionary<string, string>();
+			EnumOutputs = new Dictionary<string, string>();
+			BoolOutputs = new Dictionary<string, string>();
+			CoordOutputs = new Dictionary<string, string>();
 			StockGlassLines = new List<string>();
 
-			foreach (string i in JSONProductLine.Input)
+			// Retrieve each possible input field
+			foreach (string input in JSONProductLine.Input)
 			{
-				if (i.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
-					FloatInputs.Add(i);
+				if (input.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || input.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
+					FloatInputs.Add(input);
 
-				else if (i.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
-					BoolInputs.Add(i);
+				else if (input.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
+					BoolInputs.Add(input);
 			}
-			foreach (string i in JSONProductLine.Output)
+
+			// Retrieve each possible output field and its corresponding input field and type
+			foreach (var output in JSONProductLine.Output)
 			{
-				if (i.Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || i.Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
-					FloatOutputs.Add(i);
+				if (((string)(output.Name)).Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || ((string)(output.Name)).Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
+					FloatOutputs.Add((string)output.Name, (string)output.Input);
+
+				else if (((string)(output.Name)).Equals("WallJamb", StringComparison.OrdinalIgnoreCase))
+					EnumOutputs.Add((string)output.Name, (string)output.Input);
 
 			}
+
+			// Look at each logic tree for each possible output
+			foreach (var logic in JSONProductLine.Logic)
+			{
+				// Create a new logic sequence
+				List<State> states = new List<State>();
+
+				// Look at each state in the logic tree
+				for (int i = 0; i < logic.First.Count; i++)
+				{
+					var state = logic.First[i];
+					State newState;
+
+					// (NOTE: By default, the next state is automatically the next state)
+					// Constructors for arithmetic states 
+					if ("Addition".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new AdditionState(i, i + 1, (float)state.Value);
+					}
+					else if ("Subtraction".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new SubtractionState(i, i + 1, (float)state.Value);
+					}
+					else if ("Multiplication".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new MultiplicationState(i, i + 1, (float)state.Value);
+					}
+					else if ("Division".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new DivisionState(i, i + 1, (float)state.Value);
+					}
+					// Constructors for rounding states
+					else if ("RoundDown".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new RoundDownState(i, i + 1, (float)state.Interval);
+					}
+					else if ("RoundUp".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new RoundUpState(i, i + 1, (float)state.Interval);
+					}
+					// Constructors for branching states
+					else if ("Branch".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchState(i, i + 1, (int)state.NextState, true);
+					}
+					else if ("BranchConditional".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchConditionalState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string)state.ConditionalName);
+					}
+					else if ("BranchValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchValueState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (float)state.Minimum, (float)state.Maximum);
+					}
+					else if ("BranchFractionalValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchFractionalValue(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (float)state.Minimum, (float)state.Maximum);
+					}
+					else if ("BranchSeries".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchSeriesState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string[])state.Series);
+					}
+					else if ("BranchConfiguration".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchConfigurationState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string[])state.Configurations);
+					}
+					// Constructor for set states
+					else if ("SetValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new SetValueState(i, i + 1, (float)state.Value);
+					}
+					else if ("SetConditional".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new SetConditionalState(i, i + 1, (bool)state.Value);
+					}
+					else if ("SetEnum".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new SetEnumState(i, i + 1, (string)state.Value, (string)state.Category);
+					}
+					// Constructor for truncate state
+					else if ("Truncate".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new TruncateState(i, i + 1);
+					}
+					// Constructor for end state
+					else if ("End".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new EndState(i, i + 1);
+					}
+					// If 'Operation' does not match any existing state replace it with an end state
+					else
+					{
+						newState = new EndState(i, i + 1);
+					}
+
+					// Once a new state is added append it onto the logic sequence
+					states.Add(newState);
+				}
+
+				// Once the logic sequence is built add the logic to the product line
+				Logic.Add((string)logic.Name, new StateMachine(states));
+			}
+
+			// Maintain the list of stock glass that will be checked by this product line
 			foreach (string i in JSONProductLine.StockGlassLine)
 			{
 				StockGlassLines.Add(i);
@@ -50,13 +159,20 @@ namespace Glass_Size_Estimator
         therefore all enum inputs will be a list of dictionaries, 
         with each dictionary containing the name of the enum input and a list of the options to select */
 
-		public List<string> BoolInputs { get; set; } //List for boolean inputs needed
-		public List<string> IntInputs { get; set; } //List for int inputs needed
-		public List<string> FloatOutputs { get; set; } //As above, so below
-		public List<string> BoolOutputs { get; set; }
-		public List<string> EnumOutputs { get; set; }
-		public List<string> CoordOutputs { get; set; }
-		public List<string> StockGlassLines { get; set; } // List of stock glass lines to check the results against
-		public Dictionary<string, StateMachine> Logic { get; set; } // A collection of state machines that will be used for the product line output calculations
+		// Lists of inputs needed
+		public List<string> BoolInputs { get; set; } // boolean inputs
+		public List<string> IntInputs { get; set; } // integer inputs
+
+		// Dictionary of outputs needed (string -> name of output | string -> name of input utilized)
+		public Dictionary<string, string> FloatOutputs { get; set; } //As above, so below
+		public Dictionary<string, string> BoolOutputs { get; set; }
+		public Dictionary<string, string> EnumOutputs { get; set; }
+		public Dictionary<string, string> CoordOutputs { get; set; }
+
+		// List of stock glass lines to check the results against
+		public List<string> StockGlassLines { get; set; }
+
+		// A collection of state machines that will be used for the product line output calculations
+		public Dictionary<string, StateMachine> Logic { get; set; }
 	}
 }

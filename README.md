@@ -83,9 +83,29 @@ All types and their corresponding UI element
         "ClearSweep"
       ],
       "Output": [
-        "ResultingWidth",
-        "ResultingHeight",
-        "WallJamb"
+        {
+          "Name": "ResultingWidth",
+          "Input": "OpeningWidth"
+        },
+        {
+          "Name": "ResultingHeight",
+          "Input": "OpeningHeight"
+        },
+        {
+          "Name": "WallJamb",
+          "Input": "OpeningWidth"
+        }
+      ],
+      "StockGlassLine": [
+        "Door_Glass_69_Stall_3/16_Clear",
+        "Door_Glass_69_Stall_3/16_Rain",
+        "Door_Glass_69_Stall_3/16_P5",
+        "Door_Glass_72_Stall_3/16_Clear",
+        "Door_Glass_72_Stall_3/16_Rain",
+        "Door_Glass_72_Stall_3/16_P5",
+        "Door_Glass_75_Stall_3/16_Clear",
+        "Door_Glass_75_Stall_3/16_Rain",
+        "Door_Glass_75_Stall_3/16_P5"
       ],
       "Logic": {
         "ResultingWidth": [
@@ -208,18 +228,7 @@ All types and their corresponding UI element
             "Operation": "End"
           }
         ]
-      },
-      "StockGlassLine": [
-        "Door_Glass_69_Stall_3/16_Clear",
-        "Door_Glass_69_Stall_3/16_Rain",
-        "Door_Glass_69_Stall_3/16_P5",
-        "Door_Glass_72_Stall_3/16_Clear",
-        "Door_Glass_72_Stall_3/16_Rain",
-        "Door_Glass_72_Stall_3/16_P5",
-        "Door_Glass_75_Stall_3/16_Clear",
-        "Door_Glass_75_Stall_3/16_Rain",
-        "Door_Glass_75_Stall_3/16_P5"
-      ]
+      }
     }
   ]
 }

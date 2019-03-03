@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Glass_Size_Estimator
 {
@@ -15,6 +12,7 @@ namespace Glass_Size_Estimator
 		private List<ProductLine> productLines;
 		private Dictionary<string, StockGlassLine> stockGlassLines;
 		private ProductLine selectedProduct;
+
 		public Main(List<ProductLine> ConfigProductLines, Dictionary<string, StockGlassLine> ConfigStockGlassLines)
 		{
 			productLines = ConfigProductLines;
@@ -26,9 +24,10 @@ namespace Glass_Size_Estimator
 			}
 		}
 
+		// Update the displayed fields whenever a new product line is selected
 		private void ProductLineSelector_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			//retrieving productline object based on selectedItem
+			// Retrieving productline object based on selectedItem
 			if (ProductLineSelector.SelectedItems.Count == 0)
 				return;
 			string selectedItem = ProductLineSelector.SelectedItems[0].Text;
@@ -41,10 +40,12 @@ namespace Glass_Size_Estimator
 			{
 				var value = property.GetValue(productLine); //Getting the value of the given property from the actual ProductLine object
 
+				// Generate input fields (these values are List<string>)
 				if (value is List<string> && ((List<string>)Convert.ChangeType(value, typeof(List<string>))).Count > 0) //If the value of the property is a List<string> and has a count > 0:
 				{
 					List<string> elementsToAdd = ((List<string>)Convert.ChangeType(value, typeof(List<string>)));
 
+					// Add float inputs for the selected product
 					if (property.Name.Equals("FloatInputs", StringComparison.OrdinalIgnoreCase))
 					{
 						foreach (string elementTitle in elementsToAdd)
@@ -52,6 +53,8 @@ namespace Glass_Size_Estimator
 							AddFloatInput(elementTitle);
 						}
 					}
+
+					// Add boolean inputs for the selected product
 					else if (property.Name.Equals("BoolInputs", StringComparison.OrdinalIgnoreCase))
 					{
 						foreach (string elementTitle in elementsToAdd)
@@ -59,11 +62,23 @@ namespace Glass_Size_Estimator
 							AddBoolInput(elementTitle);
 						}
 					}
-					else if (property.Name.Equals("FloatOutputs", StringComparison.OrdinalIgnoreCase))
+				}
+
+				// Generate output fields (these values are Dictionary<string,string>)
+				else if (value is Dictionary<string, string>)
+				{
+					Dictionary<string, string> outputToAdd = (Dictionary<string, string>)value;
+					foreach (KeyValuePair<string, string> kvp in outputToAdd)
 					{
-						foreach (string elementTitle in elementsToAdd)
+						// Add float outputs for the selected product
+						if (property.Name.Equals("FloatOutputs", StringComparison.OrdinalIgnoreCase))
 						{
-							AddFloatOutput(elementTitle);
+							AddFloatOutput(kvp.Key);
+						}
+						// Add enum outputs for the selected product
+						else if (property.Name.Equals("EnumOutputs", StringComparison.OrdinalIgnoreCase))
+						{
+							AddEnumOutput(kvp.Key);
 						}
 					}
 				}
@@ -86,50 +101,71 @@ namespace Glass_Size_Estimator
 			// By default, add a boolean field to indicate whether the resulting measurements are in stock
 			AddBoolOutput("Can Use Stock Glass?");
 
+			// Update the selected product line
 			selectedProduct = productLine;
 		}
 
+		// Run through the state logic whenever the estimate button is pressed
 		private void EstimateButton_Click(object sender, EventArgs e)
 		{
 			if (this.selectedProduct == null)
 				return;
 
+			// === Dictionaries used to store user parameters, input fields, and output fields ===
+			Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+			Dictionary<string, object> inputs = new Dictionary<string, object>();
+
+			Dictionary<string, float> floatoutputs = new Dictionary<string, float>();
+			Dictionary<string, bool> booloutputs = new Dictionary<string, bool>();
+			Dictionary<string, string> enumoutputs = new Dictionary<string, string>();
+
+			// === Retrieve Input Fields ===
 			string inputTitle = null;
 			string textBoxInput = null;
 			float f_input;
-			Dictionary<string, object> parameters = new Dictionary<string, object>();
-			Dictionary<string, float> floatinputs = new Dictionary<string, float>();
-			Dictionary<string, float> floatoutputs = new Dictionary<string, float>();
-			Dictionary<string, bool> booloutputs = new Dictionary<string, bool>();
-			List<State> StatesForMachine = new List<State>();
 			foreach (dynamic control in InputLayoutPanel.Controls)
 			{
 				if (control is Label)
 				{
 					inputTitle = control.Text;
 				}
-				else if (control is TextBox && inputTitle.Contains("Width"))
+				else if (control is TextBox && inputTitle.Equals("OpeningWidth"))
 				{
 					textBoxInput = control.Text;
 					if (float.TryParse(textBoxInput, out f_input))
-						floatinputs.Add("ResultingWidth", f_input);
+						inputs.Add("OpeningWidth", f_input);
 
 				}
-				else if (control is TextBox && inputTitle.Contains("Height"))
+				else if (control is TextBox && inputTitle.Contains("OpeningHeight"))
 				{
 					textBoxInput = control.Text;
 					if (float.TryParse(textBoxInput, out f_input))
-						floatinputs.Add("ResultingHeight", f_input);
+						inputs.Add("OpeningHeight", f_input);
 				}
 				else if (control is CheckBox && inputTitle.Contains("ClearSweep"))
 				{
 					parameters.Add("ClearSweep", control.Checked);
 				}
 			}
-			foreach (var kvp in floatinputs)
+
+			// === Process state machine ===
+
+			// Process each output field that belongs to the product line
+			foreach (var kvp in selectedProduct.FloatOutputs)
 			{
-				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(kvp.Value, parameters));
+				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], parameters));
 			}
+			foreach (var kvp in selectedProduct.BoolOutputs)
+			{
+				booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], parameters));
+			}
+			foreach (var kvp in selectedProduct.EnumOutputs)
+			{
+				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], parameters).ToString());
+			}
+
+			// === Print output fields ===
 			string outputTitle = null;
 			foreach (dynamic control in OutputLayoutPanel.Controls)
 			{
@@ -137,10 +173,26 @@ namespace Glass_Size_Estimator
 				{
 					outputTitle = control.Text;
 				}
+				// Add output to float or enum text fields
 				else if (control is TextBox)
 				{
-					control.Text = floatoutputs[outputTitle].ToString();
+					// Check if the output title belongs to the float outputs
+					if (floatoutputs.ContainsKey(outputTitle))
+					{
+						control.Text = floatoutputs[outputTitle].ToString();
+					}
+					// Check if the output title belongs to the enum outputs
+					else if (enumoutputs.ContainsKey(outputTitle))
+					{
+						control.Text = enumoutputs[outputTitle].ToString();
+					}
+					// Check if the output title belongs to the enum outputs
+					else if (booloutputs.ContainsKey(outputTitle))
+					{
+						control.Text = booloutputs[outputTitle].ToString();
+					}
 				}
+				// Output whether or not the resulting dimensions exist in stock inventory list
 				else if (control is CheckBox && outputTitle.Equals("Can Use Stock Glass?"))
 				{
 					bool inStock = false;
@@ -157,6 +209,7 @@ namespace Glass_Size_Estimator
 			}
 		}
 
+		// Reset the displayed fields
 		private void ResetButton_Click(object sender, EventArgs e)
 		{
 			foreach (dynamic control in InputLayoutPanel.Controls)
@@ -175,48 +228,85 @@ namespace Glass_Size_Estimator
 			}
 		}
 
+		// Add a boolean output field, represented by a checkbox
 		private void AddBoolOutput(string elementTitle)
 		{
-			Label title = new Label();
-			title.Text = elementTitle;
-			title.AutoSize = true;
-			CheckBox inputCheckBox = new CheckBox();
-			inputCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-			inputCheckBox.AutoCheck = false;
+			Label title = new Label
+			{
+				Text = elementTitle,
+				AutoSize = true
+			};
+			CheckBox inputCheckBox = new CheckBox
+			{
+				Anchor = AnchorStyles.Left | AnchorStyles.Right,
+				AutoCheck = false
+			};
 			OutputLayoutPanel.Controls.Add(title);
 			OutputLayoutPanel.Controls.Add(inputCheckBox);
 		}
 
+		// Add a float output field, represented by a textbox containing numbers
 		private void AddFloatOutput(string elementTitle)
 		{
-			Label title = new Label();
-			title.Text = elementTitle;
-			title.AutoSize = true;
-			TextBox inputTextBox = new TextBox();
-			inputTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-			inputTextBox.ReadOnly = true;
+			Label title = new Label
+			{
+				Text = elementTitle,
+				AutoSize = true
+			};
+			TextBox inputTextBox = new TextBox
+			{
+				Anchor = AnchorStyles.Left | AnchorStyles.Right,
+				ReadOnly = true
+			};
 			OutputLayoutPanel.Controls.Add(title);
 			OutputLayoutPanel.Controls.Add(inputTextBox);
 		}
 
+		// Add a enum output field, represented by a textbox with the name of the enum
+		private void AddEnumOutput(string elementTitle)
+		{
+			Label title = new Label
+			{
+				Text = elementTitle,
+				AutoSize = true
+			};
+			TextBox inputTextBox = new TextBox
+			{
+				Anchor = AnchorStyles.Left | AnchorStyles.Right,
+				ReadOnly = true
+			};
+			OutputLayoutPanel.Controls.Add(title);
+			OutputLayoutPanel.Controls.Add(inputTextBox);
+		}
+
+		// Add a boolean input field, represented by a checkbox
 		private void AddBoolInput(string elementTitle)
 		{
-			Label title = new Label();
-			title.Text = elementTitle;
-			title.AutoSize = true;
-			CheckBox inputCheckBox = new CheckBox();
-			inputCheckBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			Label title = new Label
+			{
+				Text = elementTitle,
+				AutoSize = true
+			};
+			CheckBox inputCheckBox = new CheckBox
+			{
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
+			};
 			InputLayoutPanel.Controls.Add(title);
 			InputLayoutPanel.Controls.Add(inputCheckBox);
 		}
 
+		// Add a float input field, represented by a textbox that the user can input numbers into
 		private void AddFloatInput(string elementTitle)
 		{
-			Label title = new Label();
-			title.Text = elementTitle;
-			title.AutoSize = true;
-			TextBox inputTextBox = new TextBox();
-			inputTextBox.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			Label title = new Label
+			{
+				Text = elementTitle,
+				AutoSize = true
+			};
+			TextBox inputTextBox = new TextBox
+			{
+				Anchor = AnchorStyles.Left | AnchorStyles.Right
+			};
 			InputLayoutPanel.Controls.Add(title);
 			InputLayoutPanel.Controls.Add(inputTextBox);
 		}
