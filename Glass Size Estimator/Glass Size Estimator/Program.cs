@@ -55,19 +55,19 @@ namespace Glass_Size_Estimator
 					}
 				}
 				// Parse the stock glass line inventory
-				else if (file.Contains("stock_glass_list_config.json"))
+				else if (file.Contains("stock_glass_line_config.json"))
 				{
 					using (var stream = new StreamReader(file))//put a test file in your bin/Debug/ folder to see this in action
 					{
 						string json_data = stream.ReadToEnd();
 						dynamic stockGlassListJson = JsonConvert.DeserializeObject<Object>(json_data); //A dynamic object has dynamic runtime properties that can be referenced even though the compiler doesn't know what they are
 
-						foreach (var stockGlassLine in stockGlassListJson.StockGlassLines) // Look at each stock glass line in the config
+						foreach (var stockGlassLine in stockGlassListJson) // Look at each stock glass line in the config
 						{
 							// Create a new stock glass line
 							StockGlassLine stockLine = new StockGlassLine();
 
-							foreach (var size in stockGlassLine.Sizes) // Add each possible size to the stock glass line
+							foreach (var size in stockGlassLine.First) // Add each possible size to the stock glass line
 							{
 								stockLine.AvailableStockGlass.Add(new StockGlass((float)size.Width, (float)size.Height));
 							}
