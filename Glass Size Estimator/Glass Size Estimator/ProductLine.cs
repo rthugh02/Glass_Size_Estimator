@@ -21,7 +21,6 @@ namespace Glass_Size_Estimator
 			EnumOutputs = new Dictionary<string, string>();
 			BoolOutputs = new Dictionary<string, string>();
 			CoordOutputs = new Dictionary<string, string>();
-			StockGlassLines = new List<string>();
 
 			// Retrieve each possible input field
 			foreach (string input in JSONProductLine.Input)
@@ -30,6 +29,9 @@ namespace Glass_Size_Estimator
 					FloatInputs.Add(input);
 
 				else if (input.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
+					BoolInputs.Add(input);
+
+				else if (input.Equals("TwoHoles", StringComparison.OrdinalIgnoreCase))
 					BoolInputs.Add(input);
 			}
 
@@ -145,11 +147,8 @@ namespace Glass_Size_Estimator
 				Logic.Add((string)logic.Name, new StateMachine(states));
 			}
 
-			// Maintain the list of stock glass that will be checked by this product line
-			foreach (string i in JSONProductLine.StockGlassLine)
-			{
-				StockGlassLines.Add(i);
-			}
+			// Retrieve the stock glass category the product line belongs to
+			GlassCategory = (string)JSONProductLine.Category;
 		}
 
 		public string Name { get; set; } // The name of the product line
@@ -169,8 +168,8 @@ namespace Glass_Size_Estimator
 		public Dictionary<string, string> EnumOutputs { get; set; }
 		public Dictionary<string, string> CoordOutputs { get; set; }
 
-		// List of stock glass lines to check the results against
-		public List<string> StockGlassLines { get; set; }
+		// The category of stock glass lines to look at
+		public String GlassCategory;
 
 		// A collection of state machines that will be used for the product line output calculations
 		public Dictionary<string, StateMachine> Logic { get; set; }

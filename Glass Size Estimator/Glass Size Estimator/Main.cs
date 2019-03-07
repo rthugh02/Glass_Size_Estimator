@@ -143,9 +143,10 @@ namespace Glass_Size_Estimator
 					if (float.TryParse(textBoxInput, out f_input))
 						inputs.Add("OpeningHeight", f_input);
 				}
-				else if (control is CheckBox && inputTitle.Contains("ClearSweep"))
+				// Add all checkbox input fields as parameters
+				else if (control is CheckBox)
 				{
-					parameters.Add("ClearSweep", control.Checked);
+					parameters.Add(inputTitle, control.Checked);
 				}
 			}
 
@@ -196,7 +197,7 @@ namespace Glass_Size_Estimator
 				else if (control is CheckBox && outputTitle.Equals("Can Use Stock Glass?"))
 				{
 					bool inStock = false;
-					foreach (string stockGlassLineName in selectedProduct.StockGlassLines)
+					foreach (string stockGlassLineName in GetStockGlassListName(selectedProduct, parameters))
 					{
 						if (stockGlassLines[stockGlassLineName].Contains(floatoutputs["ResultingWidth"], floatoutputs["ResultingHeight"]))
 						{
@@ -309,6 +310,26 @@ namespace Glass_Size_Estimator
 			};
 			InputLayoutPanel.Controls.Add(title);
 			InputLayoutPanel.Controls.Add(inputTextBox);
+		}
+
+		// Generate a the name of the applicable stock glass list
+		private List<string> GetStockGlassListName(ProductLine product, Dictionary<string, object> parameters)
+		{
+			// Filter the stock glass list based on glass category
+			List<string> stockGlassLists = stockGlassLines.Where(pair => pair.Key.Contains(product.GlassCategory)).Select(pair => pair.Key).ToList();
+
+			// Filter the stock glass list based on two holes parameter, if present
+			if (parameters.ContainsKey("TwoHoles") && (bool)parameters["TwoHoles"])
+			{
+				stockGlassLists = stockGlassLists.Where(list => list.Contains("TwoHoles")).ToList();
+			}
+			// Remove elements from the list with holes if not specified
+			else
+			{
+				stockGlassLists = stockGlassLists.Where(list => !list.Contains("TwoHoles")).ToList();
+			}
+
+			return stockGlassLists;
 		}
 	}
 }

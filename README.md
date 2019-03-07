@@ -80,7 +80,8 @@ All types and their corresponding UI element
       "Input": [
         "OpeningWidth",
         "OpeningHeight",
-        "ClearSweep"
+        "ClearSweep",
+        "TwoHoles"
       ],
       "Output": [
         {
@@ -95,17 +96,6 @@ All types and their corresponding UI element
           "Name": "WallJamb",
           "Input": "OpeningWidth"
         }
-      ],
-      "StockGlassLine": [
-        "Door_Glass_69_Stall_3/16_Clear",
-        "Door_Glass_69_Stall_3/16_Rain",
-        "Door_Glass_69_Stall_3/16_P5",
-        "Door_Glass_72_Stall_3/16_Clear",
-        "Door_Glass_72_Stall_3/16_Rain",
-        "Door_Glass_72_Stall_3/16_P5",
-        "Door_Glass_75_Stall_3/16_Clear",
-        "Door_Glass_75_Stall_3/16_Rain",
-        "Door_Glass_75_Stall_3/16_P5"
       ],
       "Logic": {
         "ResultingWidth": [
@@ -228,7 +218,8 @@ All types and their corresponding UI element
             "Operation": "End"
           }
         ]
-      }
+      },
+      "Category": "Door"
     }
   ]
 }
