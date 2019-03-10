@@ -166,6 +166,9 @@ namespace Glass_Size_Estimator
 				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], parameters).ToString());
 			}
 
+            bool displayDialog = false;
+            string walljamb = null;
+
 			// === Print output fields ===
 			string outputTitle = null;
 			foreach (dynamic control in OutputLayoutPanel.Controls)
@@ -186,6 +189,9 @@ namespace Glass_Size_Estimator
 					else if (enumoutputs.ContainsKey(outputTitle))
 					{
 						control.Text = enumoutputs[outputTitle].ToString();
+                        displayDialog = control.Text != "ZD1006" && outputTitle == "WallJamb";
+                        walljamb = control.Text;
+                            
 					}
 					// Check if the output title belongs to the enum outputs
 					else if (booloutputs.ContainsKey(outputTitle))
@@ -208,10 +214,30 @@ namespace Glass_Size_Estimator
 					control.Checked = inStock;
 				}
 			}
+            if (displayDialog)
+                displayWalljambAlert(walljamb);
+            
 		}
 
-		// Reset the displayed fields
-		private void ResetButton_Click(object sender, EventArgs e)
+        private void displayWalljambAlert(string walljamb)
+        {
+            Form dialog = new Form();
+            dialog.Height = 350;
+            dialog.Width = 400;
+            dialog.StartPosition = FormStartPosition.CenterScreen;
+            Label label = new Label();
+            label.Height = 28;
+            label.Width = 600;
+            label.Location = new System.Drawing.Point(10, 100);
+            label.Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
+            label.Text = "Alert: WallJamb to use is a " + walljamb;
+            label.ForeColor = System.Drawing.Color.Red;
+            dialog.Controls.Add(label);
+            dialog.ShowDialog();
+        }
+
+        // Reset the displayed fields
+        private void ResetButton_Click(object sender, EventArgs e)
 		{
 			foreach (dynamic control in InputLayoutPanel.Controls)
 			{
