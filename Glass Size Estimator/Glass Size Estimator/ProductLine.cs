@@ -110,6 +110,10 @@ namespace Glass_Size_Estimator
 					{
 						newState = new BranchConfigurationState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string[])state.Configurations);
 					}
+					else if ("BranchInputValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					{
+						newState = new BranchInputValueState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (float)state.Minimum, (float)state.Maximum, (string)state.InputName);
+					}
 					// Constructor for set states
 					else if ("SetValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{

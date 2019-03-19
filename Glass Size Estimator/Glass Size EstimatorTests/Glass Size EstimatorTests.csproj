@@ -61,8 +61,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="States\ProductTests.cs" />
-    <Compile Include="States\StateTests.cs" />
+    <Compile Include="Tests\ProductTests.cs" />
+    <Compile Include="Tests\StateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

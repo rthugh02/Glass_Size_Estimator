@@ -76,6 +76,7 @@
     <Compile Include="States\BranchConditionalState.cs" />
     <Compile Include="States\BranchSeriesState.cs" />
     <Compile Include="States\BranchFractionalValueState.cs" />
+    <Compile Include="States\BranchInputValueState.cs" />
     <Compile Include="States\BranchValueState.cs" />
     <Compile Include="States\RoundDownState.cs" />
     <Compile Include="States\RoundUpState.cs" />

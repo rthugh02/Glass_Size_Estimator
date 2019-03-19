@@ -100,24 +100,52 @@ All types and their corresponding UI element
       "Logic": {
         "ResultingWidth": [
           {
+            "Operation": "BranchInputValue",
+            "Minimum": 66.625,
+            "Maximum": 66.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "BranchInputValue",
+            "Minimum": 69.625,
+            "Maximum": 69.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "BranchInputValue",
+            "Minimum": 72.625,
+            "Maximum": 72.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "Branch",
+            "NextState": 16
+          },
+          {
             "Operation": "BranchFractionalValue",
             "Minimum": 0,
             "Maximum": 0.125,
-            "NextState": 3,
+            "NextState": 7,
             "Qualifier": true
           },
           {
             "Operation": "BranchFractionalValue",
+            "NextState": 9,
             "Minimum": 0.1875,
             "Maximum": 0.6875,
-            "NextState": 5,
             "Qualifier": true
           },
           {
             "Operation": "BranchFractionalValue",
+            "NextState": 11,
             "Minimum": 0.75,
             "Maximum": 1,
-            "NextState": 7,
             "Qualifier": true
           },
           {
@@ -126,14 +154,14 @@ All types and their corresponding UI element
           },
           {
             "Operation": "Branch",
-            "NextState": 9
+            "NextState": 13
           },
           {
             "Operation": "Truncate"
           },
           {
             "Operation": "Branch",
-            "NextState": 9
+            "NextState": 13
           },
           {
             "Operation": "RoundUp",
@@ -141,7 +169,7 @@ All types and their corresponding UI element
           },
           {
             "Operation": "Branch",
-            "NextState": 9
+            "NextState": 13
           },
           {
             "Operation": "Subtraction",
@@ -150,6 +178,14 @@ All types and their corresponding UI element
           {
             "Operation": "Addition",
             "Value": 0.8125
+          },
+          {
+            "Operation": "Branch",
+            "NextState": 17
+          },
+          {
+            "Operation": "Subtraction",
+            "Value": 3.5
           },
           {
             "Operation": "End"
@@ -176,24 +212,52 @@ All types and their corresponding UI element
         ],
         "WallJamb": [
           {
+            "Operation": "BranchInputValue",
+            "Minimum": 66.625,
+            "Maximum": 66.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "BranchInputValue",
+            "Minimum": 69.625,
+            "Maximum": 69.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "BranchInputValue",
+            "Minimum": 72.625,
+            "Maximum": 72.625,
+            "NextState": 4,
+            "Qualifier": true,
+            "InputName": "OpeningHeight"
+          },
+          {
+            "Operation": "Branch",
+            "NextState": 9
+          },
+          {
             "Operation": "BranchFractionalValue",
+            "NextState": 7,
             "Minimum": 0,
             "Maximum": 0.125,
-            "NextState": 3,
             "Qualifier": true
           },
           {
             "Operation": "BranchFractionalValue",
             "Minimum": 0.1875,
             "Maximum": 0.6875,
-            "NextState": 5,
+            "NextState": 9,
             "Qualifier": true
           },
           {
             "Operation": "BranchFractionalValue",
             "Minimum": 0.75,
             "Maximum": 1,
-            "NextState": 3,
+            "NextState": 7,
             "Qualifier": true
           },
           {
@@ -203,7 +267,7 @@ All types and their corresponding UI element
           },
           {
             "Operation": "Branch",
-            "NextState": 7
+            "NextState": 11
           },
           {
             "Operation": "SetEnum",
@@ -212,7 +276,7 @@ All types and their corresponding UI element
           },
           {
             "Operation": "Branch",
-            "NextState": 7
+            "NextState": 11
           },
           {
             "Operation": "End"

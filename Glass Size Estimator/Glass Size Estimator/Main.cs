@@ -112,9 +112,7 @@ namespace Glass_Size_Estimator
 				return;
 
 			// === Dictionaries used to store user parameters, input fields, and output fields ===
-			Dictionary<string, object> parameters = new Dictionary<string, object>();
-
-			Dictionary<string, object> inputs = new Dictionary<string, object>();
+			Dictionary<string, object> inputs = new Dictionary<string, object>(); // All inputs and parameters are include in this one dictionary
 
 			Dictionary<string, float> floatoutputs = new Dictionary<string, float>();
 			Dictionary<string, bool> booloutputs = new Dictionary<string, bool>();
@@ -130,23 +128,18 @@ namespace Glass_Size_Estimator
 				{
 					inputTitle = control.Text;
 				}
-				else if (control is TextBox && inputTitle.Equals("OpeningWidth"))
+				else if (control is TextBox)
 				{
 					textBoxInput = control.Text;
 					if (float.TryParse(textBoxInput, out f_input))
-						inputs.Add("OpeningWidth", f_input);
-
-				}
-				else if (control is TextBox && inputTitle.Contains("OpeningHeight"))
-				{
-					textBoxInput = control.Text;
-					if (float.TryParse(textBoxInput, out f_input))
-						inputs.Add("OpeningHeight", f_input);
+					{
+						inputs.Add(inputTitle, f_input);
+					}
 				}
 				// Add all checkbox input fields as parameters
 				else if (control is CheckBox)
 				{
-					parameters.Add(inputTitle, control.Checked);
+					inputs.Add(inputTitle, control.Checked);
 				}
 			}
 
@@ -155,19 +148,19 @@ namespace Glass_Size_Estimator
 			// Process each output field that belongs to the product line
 			foreach (var kvp in selectedProduct.FloatOutputs)
 			{
-				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], parameters));
+				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], inputs));
 			}
 			foreach (var kvp in selectedProduct.BoolOutputs)
 			{
-				booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], parameters));
+				booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], inputs));
 			}
 			foreach (var kvp in selectedProduct.EnumOutputs)
 			{
-				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], parameters).ToString());
+				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], inputs).ToString());
 			}
 
-            bool displayDialog = false;
-            string walljamb = null;
+			bool displayDialog = false;
+			string walljamb = null;
 
 			// === Print output fields ===
 			string outputTitle = null;
@@ -189,9 +182,9 @@ namespace Glass_Size_Estimator
 					else if (enumoutputs.ContainsKey(outputTitle))
 					{
 						control.Text = enumoutputs[outputTitle].ToString();
-                        displayDialog = control.Text != "ZD1006" && outputTitle == "WallJamb";
-                        walljamb = control.Text;
-                            
+						displayDialog = control.Text != "ZD1006" && outputTitle == "WallJamb";
+						walljamb = control.Text;
+
 					}
 					// Check if the output title belongs to the enum outputs
 					else if (booloutputs.ContainsKey(outputTitle))
@@ -203,7 +196,7 @@ namespace Glass_Size_Estimator
 				else if (control is CheckBox && outputTitle.Equals("Can Use Stock Glass?"))
 				{
 					bool inStock = false;
-					foreach (string stockGlassLineName in GetStockGlassListName(selectedProduct, parameters))
+					foreach (string stockGlassLineName in GetStockGlassListName(selectedProduct, inputs))
 					{
 						if (stockGlassLines[stockGlassLineName].Contains(floatoutputs["ResultingWidth"], floatoutputs["ResultingHeight"]))
 						{
@@ -214,30 +207,34 @@ namespace Glass_Size_Estimator
 					control.Checked = inStock;
 				}
 			}
-            if (displayDialog)
-                displayWalljambAlert(walljamb);
-            
+			if (displayDialog)
+				DisplayWalljambAlert(walljamb);
+
 		}
 
-        private void displayWalljambAlert(string walljamb)
-        {
-            Form dialog = new Form();
-            dialog.Height = 350;
-            dialog.Width = 400;
-            dialog.StartPosition = FormStartPosition.CenterScreen;
-            Label label = new Label();
-            label.Height = 28;
-            label.Width = 600;
-            label.Location = new System.Drawing.Point(10, 100);
-            label.Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold);
-            label.Text = "Alert: WallJamb to use is a " + walljamb;
-            label.ForeColor = System.Drawing.Color.Red;
-            dialog.Controls.Add(label);
-            dialog.ShowDialog();
-        }
+		private void DisplayWalljambAlert(string walljamb)
+		{
+			Form dialog = new Form
+			{
+				Height = 350,
+				Width = 400,
+				StartPosition = FormStartPosition.CenterScreen
+			};
+			Label label = new Label
+			{
+				Height = 28,
+				Width = 600,
+				Location = new System.Drawing.Point(10, 100),
+				Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold),
+				Text = "Alert: WallJamb to use is a " + walljamb,
+				ForeColor = System.Drawing.Color.Red
+			};
+			dialog.Controls.Add(label);
+			dialog.ShowDialog();
+		}
 
-        // Reset the displayed fields
-        private void ResetButton_Click(object sender, EventArgs e)
+		// Reset the displayed fields
+		private void ResetButton_Click(object sender, EventArgs e)
 		{
 			foreach (dynamic control in InputLayoutPanel.Controls)
 			{
