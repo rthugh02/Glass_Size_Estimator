@@ -98,15 +98,18 @@ All types and their corresponding UI element
       "Output": [
         {
           "Name": "ResultingWidth",
+          "Type": "Float",
           "Input": "OpeningWidth"
         },
         {
           "Name": "ResultingHeight",
-          "Input": "OpeningHeight"
+          "Input": "OpeningHeight",
+          "Type": "Float"
         },
         {
           "Name": "WallJamb",
-          "Input": "OpeningWidth"
+          "Input": "OpeningWidth",
+          "Type": "Enum"
         }
       ],
       "Logic": {
