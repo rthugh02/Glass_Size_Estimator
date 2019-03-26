@@ -78,10 +78,22 @@ All types and their corresponding UI element
     {
       "Name": "Stock Cardinal Series Semi-frameless Single Doors",
       "Input": [
-        "OpeningWidth",
-        "OpeningHeight",
-        "ClearSweep",
-        "TwoHoles"
+        {
+          "Name": "OpeningWidth",
+          "Type": "Float"
+        },
+        {
+          "Name": "OpeningHeight",
+          "Type": "Float"
+        },
+        {
+          "Name": "ClearSweep",
+          "Type": "Boolean"
+        },
+        {
+          "Name": "TwoHoles",
+          "Type": "Boolean"
+        }
       ],
       "Output": [
         {

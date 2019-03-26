@@ -45,11 +45,21 @@ namespace Glass_Size_Estimator
 			// Retrieve each possible output field and its corresponding input field and type
 			foreach (var output in JSONProductLine.Output)
 			{
-				if (((string)(output.Name)).Equals("ResultingWidth", StringComparison.OrdinalIgnoreCase) || ((string)(output.Name)).Equals("ResultingHeight", StringComparison.OrdinalIgnoreCase))
+				// Add float outputs
+				if (((string)(output.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
 					FloatOutputs.Add((string)output.Name, (string)output.Input);
 
-				else if (((string)(output.Name)).Equals("WallJamb", StringComparison.OrdinalIgnoreCase))
+				// Add boolean outputs
+				else if (((string)(output.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+					BoolOutputs.Add((string)output.Name, (string)output.Input);
+
+				// Add enum outputs
+				else if (((string)(output.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
 					EnumOutputs.Add((string)output.Name, (string)output.Input);
+
+				// Add integer outputs
+				else if (((string)(output.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
+					IntOutputs.Add((string)output.Name, (string)output.Input);
 
 			}
 
@@ -174,9 +184,10 @@ namespace Glass_Size_Estimator
         therefore all enum inputs will be a list of dictionaries, 
         with each dictionary containing the name of the enum input and a list of the options to select */
 
-		// Dictionary of outputs needed (string -> name of output | string -> name of input utilized)
+		// Dictionary of outputs needed (string -> name of output | string -> name of input that will be modified by the calculation)
 		public Dictionary<string, string> FloatOutputs { get; set; } //As above, so below
 		public Dictionary<string, string> BoolOutputs { get; set; }
+		public Dictionary<string, string> IntOutputs { get; set; }
 		public Dictionary<string, string> EnumOutputs { get; set; }
 		public Dictionary<string, string> CoordOutputs { get; set; }
 
