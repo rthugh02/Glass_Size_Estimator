@@ -8,10 +8,14 @@ namespace Glass_Size_Estimator
 {
 	public class ProductLine
 	{
-		// Constructor
+		// Product Line constructor
+		// This function is provided a json object corresponding to one product line, which is then parsed by the following code
 		public ProductLine(dynamic JSONProductLine)
 		{
+			// Set the name of the product line
 			this.Name = (string)JSONProductLine.Name;
+
+			// Initialize all of the lists and dictionaries required by the product line
 			Logic = new Dictionary<string, StateMachine>();
 			FloatInputs = new List<string>();
 			EnumInputs = new List<string>();
@@ -20,7 +24,7 @@ namespace Glass_Size_Estimator
 			FloatOutputs = new Dictionary<string, string>();
 			EnumOutputs = new Dictionary<string, string>();
 			BoolOutputs = new Dictionary<string, string>();
-			CoordOutputs = new Dictionary<string, string>();
+			// CoordOutputs = new Dictionary<string, string>(); NOT IMPLEMENTED
 
 			// Retrieve each possible input field
 			foreach (var input in JSONProductLine.Input)
@@ -63,7 +67,7 @@ namespace Glass_Size_Estimator
 
 			}
 
-			// Look at each logic tree for each possible output
+			// Look at each logic tree for each output in the product line
 			foreach (var logic in JSONProductLine.Logic)
 			{
 				// Create a new logic sequence
@@ -75,7 +79,8 @@ namespace Glass_Size_Estimator
 					var state = logic.First[i];
 					State newState;
 
-					// (NOTE: By default, the next state is automatically the next state)
+					// NOTE: By default, the next state is automatically the next state
+
 					// Constructors for arithmetic states 
 					if ("Addition".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
@@ -93,6 +98,7 @@ namespace Glass_Size_Estimator
 					{
 						newState = new DivisionState(i, i + 1, (float)state.Value);
 					}
+
 					// Constructors for rounding states
 					else if ("RoundDown".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
@@ -102,6 +108,7 @@ namespace Glass_Size_Estimator
 					{
 						newState = new RoundUpState(i, i + 1, (float)state.Interval);
 					}
+
 					// Constructors for branching states
 					else if ("Branch".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
@@ -131,6 +138,7 @@ namespace Glass_Size_Estimator
 					{
 						newState = new BranchInputValueState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (float)state.Minimum, (float)state.Maximum, (string)state.InputName);
 					}
+
 					// Constructor for set states
 					else if ("SetValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
@@ -144,16 +152,19 @@ namespace Glass_Size_Estimator
 					{
 						newState = new SetEnumState(i, i + 1, (string)state.Value, (string)state.Category);
 					}
+
 					// Constructor for truncate state
 					else if ("Truncate".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
 						newState = new TruncateState(i, i + 1);
 					}
+
 					// Constructor for end state
 					else if ("End".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
 						newState = new EndState(i, i + 1);
 					}
+
 					// If 'Operation' does not match any existing state replace it with an end state
 					else
 					{
@@ -172,11 +183,10 @@ namespace Glass_Size_Estimator
 			GlassCategory = (string)JSONProductLine.Category;
 		}
 
-		public string Name { get; set; } // The name of the product line
+		// The name of the product line
+		public string Name { get; set; }
 
-
-
-		// Lists of inputs needed
+		// Lists of inputs needed by the product line
 		public List<string> FloatInputs { get; set; } // float inputs
 		public List<string> BoolInputs { get; set; } // boolean inputs
 		public List<string> IntInputs { get; set; } // integer inputs
@@ -184,12 +194,13 @@ namespace Glass_Size_Estimator
         therefore all enum inputs will be a list of dictionaries, 
         with each dictionary containing the name of the enum input and a list of the options to select */
 
-		// Dictionary of outputs needed (string -> name of output | string -> name of input that will be modified by the calculation)
+		// Dictionary of outputs needed by the product line
+		// NOTE: string -> name of output | string -> name of input that will be modified by the application and returned
 		public Dictionary<string, string> FloatOutputs { get; set; } //As above, so below
 		public Dictionary<string, string> BoolOutputs { get; set; }
 		public Dictionary<string, string> IntOutputs { get; set; }
 		public Dictionary<string, string> EnumOutputs { get; set; }
-		public Dictionary<string, string> CoordOutputs { get; set; }
+		// public Dictionary<string, string> CoordOutputs { get; set; } NOT IMPLEMENTED
 
 		// The category of stock glass lines to look at
 		public String GlassCategory;
