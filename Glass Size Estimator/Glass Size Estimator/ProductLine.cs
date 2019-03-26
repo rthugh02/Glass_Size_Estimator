@@ -14,7 +14,7 @@ namespace Glass_Size_Estimator
 			this.Name = (string)JSONProductLine.Name;
 			Logic = new Dictionary<string, StateMachine>();
 			FloatInputs = new List<string>();
-			EnumInputs = new List<Dictionary<string, List<string>>>();
+			EnumInputs = new List<string>();
 			BoolInputs = new List<string>();
 			IntInputs = new List<string>();
 			FloatOutputs = new Dictionary<string, string>();
@@ -23,16 +23,23 @@ namespace Glass_Size_Estimator
 			CoordOutputs = new Dictionary<string, string>();
 
 			// Retrieve each possible input field
-			foreach (string input in JSONProductLine.Input)
+			foreach (var input in JSONProductLine.Input)
 			{
-				if (input.Equals("OpeningWidth", StringComparison.OrdinalIgnoreCase) || input.Equals("OpeningHeight", StringComparison.OrdinalIgnoreCase))
-					FloatInputs.Add(input);
+				// Add float inputs
+				if (((string)(input.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
+					FloatInputs.Add(((string)(input.Name)));
 
-				else if (input.Equals("ClearSweep", StringComparison.OrdinalIgnoreCase))
-					BoolInputs.Add(input);
+				// Add boolean inputs
+				else if (((string)(input.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+					BoolInputs.Add(((string)(input.Name)));
 
-				else if (input.Equals("TwoHoles", StringComparison.OrdinalIgnoreCase))
-					BoolInputs.Add(input);
+				// TODO: Add enum inputs
+				else if (((string)(input.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
+					EnumInputs.Add(((string)(input.Name)));
+
+				// Add integer inputs
+				else if (((string)(input.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
+					IntInputs.Add(((string)(input.Name)));
 			}
 
 			// Retrieve each possible output field and its corresponding input field and type
@@ -156,15 +163,16 @@ namespace Glass_Size_Estimator
 		}
 
 		public string Name { get; set; } // The name of the product line
-		public List<string> FloatInputs { get; set; } //List of names of float input values
 
-		public List<Dictionary<string, List<string>>> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
-        therefore all enum inputs will be a list of dictionaries, 
-        with each dictionary containing the name of the enum input and a list of the options to select */
+
 
 		// Lists of inputs needed
+		public List<string> FloatInputs { get; set; } // float inputs
 		public List<string> BoolInputs { get; set; } // boolean inputs
 		public List<string> IntInputs { get; set; } // integer inputs
+		public List<string> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
+        therefore all enum inputs will be a list of dictionaries, 
+        with each dictionary containing the name of the enum input and a list of the options to select */
 
 		// Dictionary of outputs needed (string -> name of output | string -> name of input utilized)
 		public Dictionary<string, string> FloatOutputs { get; set; } //As above, so below
