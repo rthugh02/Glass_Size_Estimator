@@ -127,13 +127,9 @@ namespace Glass_Size_Estimator
 					{
 						newState = new BranchFractionalValue(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (float)state.Minimum, (float)state.Maximum);
 					}
-					else if ("BranchSeries".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
+					else if ("BranchEnum".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
-						newState = new BranchSeriesState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string[])state.Series);
-					}
-					else if ("BranchConfiguration".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
-					{
-						newState = new BranchConfigurationState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string[])state.Configurations);
+						newState = new BranchEnumState(i, i + 1, (int)state.NextState, (bool)state.Qualifier, (string)state.EnumCategory, (string[])state.EnumList);
 					}
 					else if ("BranchInputValue".Equals((string)state.Operation, StringComparison.OrdinalIgnoreCase))
 					{
