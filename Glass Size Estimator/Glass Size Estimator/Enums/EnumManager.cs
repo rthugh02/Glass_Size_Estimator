@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-	// Class used to retrieve enum of different categories via strings
+	// This class was implemented to supply helper functions that retrieve enum from different categories after being given a string
 	class EnumFactory
 	{
 		// Return an enum based on the given string value and category

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
+	// Implements branching depending on given input's value
 	public class BranchInputValueState : BranchState
 	{
 		// Constructor
@@ -28,7 +29,7 @@ namespace Glass_Size_Estimator
 		/*
 		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
 		 * INPUT: { None }
-		 * PARAMETERS: { Next State Number (INT) }
+		 * PARAMETERS: { Next State Number (INT), Qualifier (BOOL), Minimum (FLOAT), Maximum (FLOAT), Input Name (STRING) }
 		 * OUTPUT: { None }
 		 */
 		public override void Process()

@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-    public class EndState : State
-    {
-        // Constructor
-        public EndState(int stateNumber, int nextState) : base(stateNumber, nextState)
-        {
-            // Do Nothing
-        }
+	// Implement end state
+	public class EndState : State
+	{
+		// Constructor
+		public EndState(int stateNumber, int nextState) : base(stateNumber, nextState)
+		{
+			// Do Nothing
+		}
 
-        /*
+		/*
 		 * PROCESS DESCRIPTION: Signal the end of the logic
 		 * INPUT: { None }
 		 * PARAMETERS: { None }
 		 * OUTPUT: { None }
 		 */
-        public override void Process()
-        {
-            // Set the input to be the output by default
-            this.Output = this.Input;
-        }
-    }
+		public override void Process()
+		{
+			// Set the input to be the output by default
+			this.Output = this.Input;
+		}
+	}
 }

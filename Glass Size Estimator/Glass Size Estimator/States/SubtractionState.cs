@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-	// Implements subtraction logic
+	// Implements subtraction
 	public class SubtractionState : ArithmeticState
 	{
 		// Constructor

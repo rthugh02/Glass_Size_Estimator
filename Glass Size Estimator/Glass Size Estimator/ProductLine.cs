@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
+	// This class represents a product line in the application
 	public class ProductLine
 	{
 		// Product Line constructor
