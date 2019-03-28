@@ -62,6 +62,15 @@ namespace Glass_Size_Estimator
 							AddBoolInput(elementTitle);
 						}
 					}
+
+                    else if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
+                    {
+                        int i = 0;
+                        foreach (string elementTitle in elementsToAdd)
+                        {
+                            AddEnumInput(elementTitle, i++);
+                        }
+                    }
 				}
 
 				// Generate output fields (these values are Dictionary<string,string>)
@@ -82,20 +91,6 @@ namespace Glass_Size_Estimator
 						}
 					}
 				}
-				else if (value is List<Dictionary<string, List<string>>>)
-				{
-					if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
-					{
-						List<Dictionary<string, List<string>>> elementsToAdd = (List<Dictionary<string, List<string>>>)Convert.ChangeType(value, typeof(List<Dictionary<string, List<string>>>));
-
-						//TODO: figure out how to build a drop down for each of the Enums, ListBox maybe? Or some other Control
-						//ListBox inputListBox = new ListBox();
-						//InputLabel.Anchor = AnchorStyles.Bottom;
-						//InputLayoutPanel.Controls.Add(title);
-						//InputLayoutPanel.Controls.Add(inputListBox);
-
-					}
-				}
 			}
 
 			// By default, add a boolean field to indicate whether the resulting measurements are in stock
@@ -105,8 +100,8 @@ namespace Glass_Size_Estimator
 			selectedProduct = productLine;
 		}
 
-		// Run through the state logic whenever the estimate button is pressed
-		private void EstimateButton_Click(object sender, EventArgs e)
+        // Run through the state logic whenever the estimate button is pressed
+        private void EstimateButton_Click(object sender, EventArgs e)
 		{
 			if (this.selectedProduct == null)
 				return;
@@ -334,9 +329,25 @@ namespace Glass_Size_Estimator
 			InputLayoutPanel.Controls.Add(title);
 			InputLayoutPanel.Controls.Add(inputTextBox);
 		}
+        //Add an Enum input field, represented by a ComboBox
+        private void AddEnumInput(string elementTitle, int index)
+        {
+            Label title = new Label
+            {
+                Text = elementTitle,
+                AutoSize = true
+            };
+            ComboBox inputComboBox = new ComboBox
+            {
+                DataSource = new { }
 
-		// Generate a the name of the applicable stock glass list
-		private List<string> GetStockGlassListName(ProductLine product, Dictionary<string, object> parameters)
+            };
+
+            throw new NotImplementedException("Under Development");
+        }
+
+        // Generate a the name of the applicable stock glass list
+        private List<string> GetStockGlassListName(ProductLine product, Dictionary<string, object> parameters)
 		{
 			// Filter the stock glass list based on glass category
 			List<string> stockGlassLists = stockGlassLines.Where(pair => pair.Key.Contains(product.GlassCategory)).Select(pair => pair.Key).ToList();
