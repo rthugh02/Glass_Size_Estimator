@@ -19,7 +19,7 @@ namespace Glass_Size_Estimator
 			// Initialize all of the lists and dictionaries required by the product line
 			Logic = new Dictionary<string, StateMachine>();
 			FloatInputs = new List<string>();
-			EnumInputs = new List<string>();
+			EnumInputs = new Dictionary<string, List<string>>();
 			BoolInputs = new List<string>();
 			IntInputs = new List<string>();
 			FloatOutputs = new Dictionary<string, string>();
@@ -30,21 +30,22 @@ namespace Glass_Size_Estimator
 			// Retrieve each possible input field
 			foreach (var input in JSONProductLine.Input)
 			{
-				// Add float inputs
-				if (((string)(input.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
-					FloatInputs.Add(((string)(input.Name)));
+                // Add float inputs
+                if (((string)(input.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
+                    FloatInputs.Add(((string)(input.Name)));
 
-				// Add boolean inputs
-				else if (((string)(input.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
-					BoolInputs.Add(((string)(input.Name)));
+                // Add boolean inputs
+                else if (((string)(input.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+                    BoolInputs.Add(((string)(input.Name)));
 
-				// TODO: Add enum inputs
-				else if (((string)(input.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
-					EnumInputs.Add(((string)(input.Name)));
+                // TODO: Add enum inputs
+                else if (((string)(input.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
+                    EnumInputs.Add((string)input.Name, input.Options.ToObject(typeof(List<string>)));
+                //EnumInputs.Add(((string)(input.Name)));
 
-				// Add integer inputs
-				else if (((string)(input.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
-					IntInputs.Add(((string)(input.Name)));
+                // Add integer inputs
+                else if (((string)(input.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
+                    IntInputs.Add(((string)(input.Name)));
 			}
 
 			// Retrieve each possible output field and its corresponding input field and type
@@ -187,7 +188,7 @@ namespace Glass_Size_Estimator
 		public List<string> FloatInputs { get; set; } // float inputs
 		public List<string> BoolInputs { get; set; } // boolean inputs
 		public List<string> IntInputs { get; set; } // integer inputs
-		public List<string> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
+		public Dictionary<string, List<string>> EnumInputs { get; set; } /*Each enum entry will have a name (key) and a list of choosable options (value) 
         therefore all enum inputs will be a list of dictionaries, 
         with each dictionary containing the name of the enum input and a list of the options to select */
 

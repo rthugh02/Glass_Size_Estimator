@@ -62,15 +62,6 @@ namespace Glass_Size_Estimator
 							AddBoolInput(elementTitle);
 						}
 					}
-
-                    else if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
-                    {
-                        int i = 0;
-                        foreach (string elementTitle in elementsToAdd)
-                        {
-                            AddEnumInput(elementTitle, i++);
-                        }
-                    }
 				}
 
 				// Generate output fields (these values are Dictionary<string,string>)
@@ -91,6 +82,16 @@ namespace Glass_Size_Estimator
 						}
 					}
 				}
+                else if (value is Dictionary<string, List<string>>)
+                {
+                    Dictionary<string, List<string>> elementsToAdd = (Dictionary<string, List<string>>)value;
+
+                    foreach(KeyValuePair<string, List<string>> kvp in elementsToAdd)
+                    {
+                        AddEnumInput(kvp);
+                    }
+
+                }
 			}
 
 			// By default, add a boolean field to indicate whether the resulting measurements are in stock
@@ -136,6 +137,10 @@ namespace Glass_Size_Estimator
 				{
 					inputs.Add(inputTitle, control.Checked);
 				}
+                else if (control is ComboBox)
+                {
+                    inputs.Add(inputTitle, control.SelectedItem);
+                }
 			}
 
 			// === Process state machine ===
@@ -330,20 +335,23 @@ namespace Glass_Size_Estimator
 			InputLayoutPanel.Controls.Add(inputTextBox);
 		}
         //Add an Enum input field, represented by a ComboBox
-        private void AddEnumInput(string elementTitle, int index)
+        private void AddEnumInput(KeyValuePair<string, List<string>> input)
         {
             Label title = new Label
             {
-                Text = elementTitle,
+                Text = input.Key,
                 AutoSize = true
             };
+
             ComboBox inputComboBox = new ComboBox
             {
-                DataSource = new { }
-
+                DataSource = input.Value,
+                AutoCompleteMode = AutoCompleteMode.Append,
+                AutoCompleteSource = AutoCompleteSource.ListItems
             };
-
-            throw new NotImplementedException("Under Development");
+            InputLayoutPanel.Controls.Add(title);
+            InputLayoutPanel.Controls.Add(inputComboBox);
+            //throw new NotImplementedException("Under Development");
         }
 
         // Generate a the name of the applicable stock glass list
