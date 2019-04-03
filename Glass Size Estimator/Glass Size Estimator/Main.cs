@@ -143,21 +143,48 @@ namespace Glass_Size_Estimator
                 }
 			}
 
-			// === Process state machine ===
+            // === Process state machine ===
 
-			// Process each output field that belongs to the product line
-			foreach (var kvp in selectedProduct.FloatOutputs)
-			{
-				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], inputs));
-			}
-			foreach (var kvp in selectedProduct.BoolOutputs)
-			{
-				booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], inputs));
-			}
-			foreach (var kvp in selectedProduct.EnumOutputs)
-			{
-				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], inputs).ToString());
-			}
+            // Process each output field that belongs to the product line
+
+            try
+            {
+                foreach (var kvp in selectedProduct.FloatOutputs)
+                {
+                    floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], inputs));
+                }
+                foreach (var kvp in selectedProduct.BoolOutputs)
+                {
+                    booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], inputs));
+                }
+                foreach (var kvp in selectedProduct.EnumOutputs)
+                {
+                    enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], inputs).ToString());
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+
+       		    Form dialog = new Form
+      		    {
+      			    Height = 350,
+      			    Width = 400,
+      			    StartPosition = FormStartPosition.CenterScreen
+      		    };
+                Label label = new Label
+                {
+                    Height = 28,
+                    Width = 600,
+                    Location = new System.Drawing.Point(100, 100),
+                    Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold),
+                    Text = "Alert: Missing Inputs",
+      			    ForeColor = System.Drawing.Color.Red
+      		    };
+      		    dialog.Controls.Add(label);
+      		    dialog.ShowDialog();
+
+                return;
+            }
 
 			bool displayDialog = false;
 			string walljamb = null;
