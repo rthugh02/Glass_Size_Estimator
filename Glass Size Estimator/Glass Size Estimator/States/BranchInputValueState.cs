@@ -53,7 +53,7 @@ namespace Glass_Size_Estimator
 			// TODO: How to deal with the specified input value is not present
 			else
 			{
-				throw new Exception();
+                throw new KeyNotFoundException();
 			}
 		}
 	}
