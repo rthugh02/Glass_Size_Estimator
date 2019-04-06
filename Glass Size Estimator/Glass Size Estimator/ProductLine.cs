@@ -30,22 +30,22 @@ namespace Glass_Size_Estimator
 			// Retrieve each possible input field
 			foreach (var input in JSONProductLine.Input)
 			{
-                // Add float inputs
-                if (((string)(input.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
-                    FloatInputs.Add(((string)(input.Name)));
+				// Add float inputs
+				if (((string)(input.Type)).Equals("Float", StringComparison.OrdinalIgnoreCase))
+					FloatInputs.Add(((string)(input.Name)));
 
-                // Add boolean inputs
-                else if (((string)(input.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
-                    BoolInputs.Add(((string)(input.Name)));
+				// Add boolean inputs
+				else if (((string)(input.Type)).Equals("Boolean", StringComparison.OrdinalIgnoreCase))
+					BoolInputs.Add(((string)(input.Name)));
 
-                // TODO: Add enum inputs
-                else if (((string)(input.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
-                    EnumInputs.Add((string)input.Name, input.Options.ToObject(typeof(List<string>)));
-                //EnumInputs.Add(((string)(input.Name)));
+				// TODO: Add enum inputs
+				else if (((string)(input.Type)).Equals("Enum", StringComparison.OrdinalIgnoreCase))
+					EnumInputs.Add((string)input.Name, input.Options.ToObject(typeof(List<string>)));
+				//EnumInputs.Add(((string)(input.Name)));
 
-                // Add integer inputs
-                else if (((string)(input.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
-                    IntInputs.Add(((string)(input.Name)));
+				// Add integer inputs
+				else if (((string)(input.Type)).Equals("Integer", StringComparison.OrdinalIgnoreCase))
+					IntInputs.Add(((string)(input.Name)));
 			}
 
 			// Retrieve each possible output field and its corresponding input field and type
