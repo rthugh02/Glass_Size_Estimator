@@ -1,8 +1,9 @@
 ﻿namespace Glass_Size_Estimator
 {
-    public enum WallJamb
-    {
-        ZD1028,
-        ZD1006
-    }
+	// All possible wall jambs
+	public enum WallJamb
+	{
+		ZD1028,
+		ZD1006
+	}
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.ExportButton = new System.Windows.Forms.Button();
 			this.EstimateButton = new System.Windows.Forms.Button();
 			this.ProductLineSelector = new System.Windows.Forms.ListView();
 			this.ButtonLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -40,21 +39,10 @@
 			this.ButtonLayoutPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// ExportButton
-			// 
-			this.ExportButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.ExportButton.Location = new System.Drawing.Point(191, 2);
-			this.ExportButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-			this.ExportButton.Name = "ExportButton";
-			this.ExportButton.Size = new System.Drawing.Size(119, 28);
-			this.ExportButton.TabIndex = 2;
-			this.ExportButton.Text = "Export";
-			this.ExportButton.UseVisualStyleBackColor = true;
-			// 
 			// EstimateButton
 			// 
 			this.EstimateButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.EstimateButton.Location = new System.Drawing.Point(359, 2);
+			this.EstimateButton.Location = new System.Drawing.Point(461, 2);
 			this.EstimateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.EstimateButton.Name = "EstimateButton";
 			this.EstimateButton.Size = new System.Drawing.Size(119, 28);
@@ -90,20 +78,19 @@
 			this.ButtonLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
 			this.ButtonLayoutPanel.Controls.Add(this.EstimateButton, 2, 0);
 			this.ButtonLayoutPanel.Controls.Add(this.ResetButton, 0, 0);
-			this.ButtonLayoutPanel.Controls.Add(this.ExportButton, 1, 0);
 			this.ButtonLayoutPanel.Location = new System.Drawing.Point(245, 406);
 			this.ButtonLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.ButtonLayoutPanel.Name = "ButtonLayoutPanel";
 			this.ButtonLayoutPanel.RowCount = 1;
 			this.ButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.ButtonLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-			this.ButtonLayoutPanel.Size = new System.Drawing.Size(503, 32);
+			this.ButtonLayoutPanel.Size = new System.Drawing.Size(625, 32);
 			this.ButtonLayoutPanel.TabIndex = 0;
 			// 
 			// ResetButton
 			// 
 			this.ResetButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.ResetButton.Location = new System.Drawing.Point(24, 2);
+			this.ResetButton.Location = new System.Drawing.Point(44, 2);
 			this.ResetButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.ResetButton.Name = "ResetButton";
 			this.ResetButton.Size = new System.Drawing.Size(119, 28);
@@ -119,7 +106,7 @@
 			this.InputLayoutPanel.ColumnCount = 2;
 			this.InputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.InputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.InputLayoutPanel.Location = new System.Drawing.Point(245, 47);
+			this.InputLayoutPanel.Location = new System.Drawing.Point(289, 47);
 			this.InputLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.InputLayoutPanel.Name = "InputLayoutPanel";
 			this.InputLayoutPanel.RowCount = 6;
@@ -129,7 +116,7 @@
 			this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
 			this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
 			this.InputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-			this.InputLayoutPanel.Size = new System.Drawing.Size(355, 135);
+			this.InputLayoutPanel.Size = new System.Drawing.Size(536, 135);
 			this.InputLayoutPanel.TabIndex = 5;
 			// 
 			// OutputLayoutPanel
@@ -139,7 +126,7 @@
 			this.OutputLayoutPanel.ColumnCount = 2;
 			this.OutputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.OutputLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.OutputLayoutPanel.Location = new System.Drawing.Point(245, 244);
+			this.OutputLayoutPanel.Location = new System.Drawing.Point(289, 244);
 			this.OutputLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.OutputLayoutPanel.Name = "OutputLayoutPanel";
 			this.OutputLayoutPanel.RowCount = 6;
@@ -149,26 +136,25 @@
 			this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
 			this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
 			this.OutputLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-			this.OutputLayoutPanel.Size = new System.Drawing.Size(355, 135);
+			this.OutputLayoutPanel.Size = new System.Drawing.Size(536, 135);
 			this.OutputLayoutPanel.TabIndex = 6;
 			// 
 			// InputLabel
 			// 
-			this.InputLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.InputLabel.AutoSize = true;
 			this.InputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.InputLabel.Location = new System.Drawing.Point(240, 9);
 			this.InputLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.InputLabel.Name = "InputLabel";
 			this.InputLabel.Size = new System.Drawing.Size(76, 25);
-			this.InputLabel.TabIndex = 7;
+			this.InputLabel.TabIndex = 8;
 			this.InputLabel.Text = "Inputs";
 			// 
 			// OutputLabel
 			// 
 			this.OutputLabel.AutoSize = true;
 			this.OutputLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.OutputLabel.Location = new System.Drawing.Point(240, 199);
+			this.OutputLabel.Location = new System.Drawing.Point(240, 208);
 			this.OutputLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.OutputLabel.Name = "OutputLabel";
 			this.OutputLabel.Size = new System.Drawing.Size(94, 25);
@@ -196,7 +182,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button ExportButton;
         private System.Windows.Forms.Button EstimateButton;
         private System.Windows.Forms.ListView ProductLineSelector;
         private System.Windows.Forms.TableLayoutPanel ButtonLayoutPanel;

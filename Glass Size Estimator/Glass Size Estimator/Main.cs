@@ -82,20 +82,16 @@ namespace Glass_Size_Estimator
 						}
 					}
 				}
-				else if (value is List<Dictionary<string, List<string>>>)
-				{
-					if (property.Name.Equals("EnumInputs", StringComparison.OrdinalIgnoreCase))
-					{
-						List<Dictionary<string, List<string>>> elementsToAdd = (List<Dictionary<string, List<string>>>)Convert.ChangeType(value, typeof(List<Dictionary<string, List<string>>>));
+                else if (value is Dictionary<string, List<string>>)
+                {
+                    Dictionary<string, List<string>> elementsToAdd = (Dictionary<string, List<string>>)value;
 
-						//TODO: figure out how to build a drop down for each of the Enums, ListBox maybe? Or some other Control
-						//ListBox inputListBox = new ListBox();
-						//InputLabel.Anchor = AnchorStyles.Bottom;
-						//InputLayoutPanel.Controls.Add(title);
-						//InputLayoutPanel.Controls.Add(inputListBox);
+                    foreach(KeyValuePair<string, List<string>> kvp in elementsToAdd)
+                    {
+                        AddEnumInput(kvp);
+                    }
 
-					}
-				}
+                }
 			}
 
 			// By default, add a boolean field to indicate whether the resulting measurements are in stock
@@ -105,8 +101,8 @@ namespace Glass_Size_Estimator
 			selectedProduct = productLine;
 		}
 
-		// Run through the state logic whenever the estimate button is pressed
-		private void EstimateButton_Click(object sender, EventArgs e)
+        // Run through the state logic whenever the estimate button is pressed
+        private void EstimateButton_Click(object sender, EventArgs e)
 		{
 			if (this.selectedProduct == null)
 				return;
@@ -141,23 +137,56 @@ namespace Glass_Size_Estimator
 				{
 					inputs.Add(inputTitle, control.Checked);
 				}
+                else if (control is ComboBox)
+                {
+                    inputs.Add(inputTitle, control.SelectedItem);
+                }
 			}
 
-			// === Process state machine ===
+            // === Process state machine ===
 
-			// Process each output field that belongs to the product line
-			foreach (var kvp in selectedProduct.FloatOutputs)
-			{
-				floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], inputs));
-			}
-			foreach (var kvp in selectedProduct.BoolOutputs)
-			{
-				booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], inputs));
-			}
-			foreach (var kvp in selectedProduct.EnumOutputs)
-			{
-				enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], inputs).ToString());
-			}
+            // Process each output field that belongs to the product line
+
+            try
+            {
+                foreach (var kvp in selectedProduct.FloatOutputs)
+                {
+                    floatoutputs.Add(kvp.Key, (float)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.FloatOutputs[kvp.Key]], inputs));
+                }
+                foreach (var kvp in selectedProduct.BoolOutputs)
+                {
+                    booloutputs.Add(kvp.Key, (bool)this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.BoolOutputs[kvp.Key]], inputs));
+                }
+                foreach (var kvp in selectedProduct.EnumOutputs)
+                {
+                    enumoutputs.Add(kvp.Key, this.selectedProduct.Logic[kvp.Key].Process(inputs[selectedProduct.EnumOutputs[kvp.Key]], inputs).ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex is KeyNotFoundException)
+                {
+                    Form dialog = new Form
+                    {
+                        Height = 350,
+                        Width = 400,
+                        StartPosition = FormStartPosition.CenterScreen
+                    };
+                    Label label = new Label
+                    {
+                        Height = 28,
+                        Width = 600,
+                        Location = new System.Drawing.Point(100, 100),
+                        Font = new System.Drawing.Font("Arial", 16, System.Drawing.FontStyle.Bold),
+                        Text = "Alert: Missing Inputs",
+                        ForeColor = System.Drawing.Color.Red
+                    };
+                    dialog.Controls.Add(label);
+                    dialog.ShowDialog();
+                    return;
+                }
+                
+            }
 
 			bool displayDialog = false;
 			string walljamb = null;
@@ -334,9 +363,28 @@ namespace Glass_Size_Estimator
 			InputLayoutPanel.Controls.Add(title);
 			InputLayoutPanel.Controls.Add(inputTextBox);
 		}
+        //Add an Enum input field, represented by a ComboBox
+        private void AddEnumInput(KeyValuePair<string, List<string>> input)
+        {
+            Label title = new Label
+            {
+                Text = input.Key,
+                AutoSize = true
+            };
 
-		// Generate a the name of the applicable stock glass list
-		private List<string> GetStockGlassListName(ProductLine product, Dictionary<string, object> parameters)
+            ComboBox inputComboBox = new ComboBox
+            {
+                DataSource = input.Value,
+                AutoCompleteMode = AutoCompleteMode.Append,
+                AutoCompleteSource = AutoCompleteSource.ListItems
+            };
+            InputLayoutPanel.Controls.Add(title);
+            InputLayoutPanel.Controls.Add(inputComboBox);
+            //throw new NotImplementedException("Under Development");
+        }
+
+        // Generate a the name of the applicable stock glass list
+        private List<string> GetStockGlassListName(ProductLine product, Dictionary<string, object> parameters)
 		{
 			// Filter the stock glass list based on glass category
 			List<string> stockGlassLists = stockGlassLines.Where(pair => pair.Key.Contains(product.GlassCategory)).Select(pair => pair.Key).ToList();

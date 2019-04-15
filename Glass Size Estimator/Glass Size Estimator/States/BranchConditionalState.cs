@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
+	// Implements branching depending on boolean conditional
 	public class BranchConditionalState : BranchState
 	{
 		// Constructor
@@ -18,9 +19,9 @@ namespace Glass_Size_Estimator
 		public string ConditionalName { get; set; }
 
 		/*
-		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
+		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value after looking at a conditional value
 		 * INPUT: { Current Value (BOOL) }
-		 * PARAMETERS: { Next State Number (INT) }
+		 * PARAMETERS: { Next State Number (INT), Qualifier (BOOL), Conditional Name (STRING) }
 		 * OUTPUT: { None }
 		 */
 		public override void Process()

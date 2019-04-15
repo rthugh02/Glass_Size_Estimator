@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Glass_Size_Estimator</RootNamespace>
     <AssemblyName>Glass Size Estimator</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\GlassType.cs" />
     <Compile Include="StateMachine.cs" />
     <Compile Include="Enums\Configuration.cs" />
     <Compile Include="Enums\Series.cs" />
@@ -71,10 +73,9 @@
     <Compile Include="Enums\EnumManager.cs" />
     <Compile Include="States\AdditionState.cs" />
     <Compile Include="States\ArithmeticState.cs" />
-    <Compile Include="States\BranchConfigurationState.cs" />
+    <Compile Include="States\BranchEnumState.cs" />
     <Compile Include="States\BranchState.cs" />
     <Compile Include="States\BranchConditionalState.cs" />
-    <Compile Include="States\BranchSeriesState.cs" />
     <Compile Include="States\BranchFractionalValueState.cs" />
     <Compile Include="States\BranchInputValueState.cs" />
     <Compile Include="States\BranchValueState.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

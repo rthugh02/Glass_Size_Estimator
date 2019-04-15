@@ -193,7 +193,7 @@ namespace Glass_Size_Estimator.Tests
 		{
 			List<State> states = new List<State>
 			{
-				new BranchSeriesState(0, 1, 2, true, new string[] { "ASE" }),
+				new BranchEnumState(0, 1, 2, true, "Series",new string[] { "ASE" }),
 				new SetValueState(1, 2, 5.0f),
 				new EndState(2, 3)
 			};
@@ -210,7 +210,7 @@ namespace Glass_Size_Estimator.Tests
 		{
 			List<State> states = new List<State>
 			{
-				new BranchConfigurationState(0, 1, 2, true, new string[] { "NEO_PANEL" }),
+				new BranchEnumState(0, 1, 2, true, "Configuration", new string[] { "NEO_PANEL" }),
 				new SetValueState(1, 2, 5.0f),
 				new EndState(2, 3)
 			};

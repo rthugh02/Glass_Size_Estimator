@@ -6,34 +6,34 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-    // Implements branching logic
-    public class BranchState : State
-    {
-        // Constructor
-        public BranchState(int stateNumber, int nextState, int nextStateNumber, bool qualifier) : base(stateNumber, nextState)
-        {
-            this.NextStateNumber = nextStateNumber;
-            this.Qualifier = qualifier;
-        }
+	// Implements branching
+	public class BranchState : State
+	{
+		// Constructor
+		public BranchState(int stateNumber, int nextState, int nextStateNumber, bool qualifier) : base(stateNumber, nextState)
+		{
+			this.NextStateNumber = nextStateNumber;
+			this.Qualifier = qualifier;
+		}
 
-        // The value that will be used in the set operation
-        public int NextStateNumber { get; set; }
+		// The value that will be used in the set operation
+		public int NextStateNumber { get; set; }
 
-        // The logic value that will be required to modify change the next state sequence
-        public bool Qualifier { get; set; }
+		// The logic value that will be required to modify change the next state sequence
+		public bool Qualifier { get; set; }
 
-        /*
+		/*
 		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
 		 * INPUT: { None }
 		 * PARAMETERS: { Next State Number (INT) }
 		 * OUTPUT: { None }
 		 */
-        public override void Process()
-        {
-            // Set the input to be the output by default
-            this.Output = this.Input;
+		public override void Process()
+		{
+			// Set the input to be the output by default
+			this.Output = this.Input;
 
-            this.NextState = this.NextStateNumber;
-        }
-    }
+			this.NextState = this.NextStateNumber;
+		}
+	}
 }

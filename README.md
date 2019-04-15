@@ -1,8 +1,8 @@
 # Configuration File
 
-### Input
+### Example Input
 
-All types of inputs that will be utilized between all of the product lines
+Example types of inputs that may be utilized between all of the product lines
 
 | Name | Type | Description |
 |------|------|-------------|
@@ -15,9 +15,9 @@ All types of inputs that will be utilized between all of the product lines
 | Configuration | ENUM | Customer requested configuration (Names not official): <br> {ONE INLINE PANEL, TWO INLINE PANEL, TWO PARTIAL INLINE PANEL, 90 DEGREE RETURN PANEL, 135 DEGREE RETURN PANEL, NOTCHED INLINE PANEL, NEO PANEL}
 | Item Number | INT | Customer requested item number |
 
-### Output
+### Example Outputs
 
-All types of output that will be calculated between all of the product lines
+Example types of output that may be calculated between all of the product lines
 
 | Name | Type | Description |
 |------|------|-------------|
@@ -68,7 +68,6 @@ All types and their corresponding UI element
 | INT | Text Area |
 | ENUM | Dropdown List (input) / Text Area (output) |
 | BOOLEAN | Checkbox |
-| COORDINATE | Text Area |
 
 ### Example PRODUCT LINE JSON CONFIGURATION
 
@@ -78,23 +77,38 @@ All types and their corresponding UI element
     {
       "Name": "Stock Cardinal Series Semi-frameless Single Doors",
       "Input": [
-        "OpeningWidth",
-        "OpeningHeight",
-        "ClearSweep",
-        "TwoHoles"
+        {
+          "Name": "OpeningWidth",
+          "Type": "Float"
+        },
+        {
+          "Name": "OpeningHeight",
+          "Type": "Float"
+        },
+        {
+          "Name": "ClearSweep",
+          "Type": "Boolean"
+        },
+        {
+          "Name": "TwoHoles",
+          "Type": "Boolean"
+        }
       ],
       "Output": [
         {
           "Name": "ResultingWidth",
+          "Type": "Float",
           "Input": "OpeningWidth"
         },
         {
           "Name": "ResultingHeight",
-          "Input": "OpeningHeight"
+          "Input": "OpeningHeight",
+          "Type": "Float"
         },
         {
           "Name": "WallJamb",
-          "Input": "OpeningWidth"
+          "Input": "OpeningWidth",
+          "Type": "Enum"
         }
       ],
       "Logic": {

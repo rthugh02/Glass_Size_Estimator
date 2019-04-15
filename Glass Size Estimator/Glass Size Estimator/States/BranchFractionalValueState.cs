@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
+	// Implements branching depending on fractional portion of value in pipeline
 	public class BranchFractionalValue : BranchValueState
 	{
 		// Constructor
@@ -15,9 +16,9 @@ namespace Glass_Size_Estimator
 		}
 
 		/*
-		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value.
+		 * PROCESS DESCRIPTION: Set the next state in the pipeline to the given value by analyzing the fractional portion of the input.
 		 * INPUT: { Current Value (FLOAT) }
-		 * PARAMETERS: { Next State Number (INT) }
+		 * PARAMETERS: { Next State Number (INT), Qualifier (BOOL), Minimum (FLOAT), Maximum (FLOAT) }
 		 * OUTPUT: { None }
 		 */
 		public override void Process()

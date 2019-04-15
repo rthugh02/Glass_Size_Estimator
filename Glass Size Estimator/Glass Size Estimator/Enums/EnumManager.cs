@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-	// Class used to retrieve enum of different categories via strings
+	// This class was implemented to supply helper functions that retrieve enum from different categories after being given a string
 	class EnumFactory
 	{
 		// Return an enum based on the given string value and category
@@ -20,6 +20,8 @@ namespace Glass_Size_Estimator
 					return GetConfiguration(value);
 				case "Series":
 					return GetSeries(value);
+				case "GlassType":
+					return GetGlassType(value);
 				default:
 					return null;
 			}
@@ -112,6 +114,22 @@ namespace Glass_Size_Estimator
 					return Series.TSE;
 				case "TTE":
 					return Series.TTE;
+				default:
+					return null;
+			}
+		}
+
+		// Return a glass type enum
+		private static Object GetGlassType(string glassType)
+		{
+			switch (glassType)
+			{
+				case "CLEAR":
+					return GlassType.CLEAR;
+				case "RAIN":
+					return GlassType.RAIN;
+				case "P5":
+					return GlassType.P5;
 				default:
 					return null;
 			}

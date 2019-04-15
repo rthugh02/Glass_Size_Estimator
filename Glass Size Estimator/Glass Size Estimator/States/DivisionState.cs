@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Glass_Size_Estimator
 {
-	// Implements division logic
+	// Implements division
 	public class DivisionState : ArithmeticState
 	{
 		// Constructor
